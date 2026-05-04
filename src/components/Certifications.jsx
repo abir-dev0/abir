@@ -3,14 +3,14 @@ import { Award } from 'lucide-react';
 
 const Certifications = () => {
   const certs = [
-    { name: 'The Unix Workbench – Johns Hopkins University (Linux)', file: '/certs/cert1.pdf' },
-    { name: 'Interactivity with JavaScript – University of Michigan', file: '/certs/cert2.pdf' },
-    { name: 'Oriented Programming (C++) – EPFL', file: '/certs/cert3.pdf' },
-    { name: 'La recherche documentaire - Ecole Polytechnique', file: '/certs/cert4.pdf' },
-    { name: 'Python for Data Science, AI & Development - IBM', file: '/certs/cert5.pdf' },
-    { name: 'Software Engineering: Software Design and Project Management - The Hong Kong University of Science and Technology', file: '/certs/cert6.pdf' },
-    { name: 'React Basics - Meta', file: '/certs/cert7.pdf' },
-    { name: 'React Native - Meta', file: '/certs/cert8.pdf' }
+    { name: 'The Unix Workbench – Johns Hopkins University (Linux)', file: `${import.meta.env.BASE_URL}certs/cert1.pdf` },
+    { name: 'Interactivity with JavaScript – University of Michigan', file: `${import.meta.env.BASE_URL}certs/cert2.pdf` },
+    { name: 'Oriented Programming (C++) – EPFL', file: `${import.meta.env.BASE_URL}certs/cert3.pdf` },
+    { name: 'La recherche documentaire - Ecole Polytechnique', file: `${import.meta.env.BASE_URL}certs/cert4.pdf` },
+    { name: 'Python for Data Science, AI & Development - IBM', file: `${import.meta.env.BASE_URL}certs/cert5.pdf` },
+    { name: 'Software Engineering: Software Design and Project Management - The Hong Kong University of Science and Technology', file: `${import.meta.env.BASE_URL}certs/cert6.pdf` },
+    { name: 'React Basics - Meta', file: `${import.meta.env.BASE_URL}certs/cert7.pdf` },
+    { name: 'React Native - Meta', file: `${import.meta.env.BASE_URL}certs/cert8.pdf` }
 
   ];
 

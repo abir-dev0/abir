@@ -83,7 +83,7 @@ const Hero = () => {
             position: 'relative',
           }}>
             <img
-              src="/profile.jpg"
+              src={`${import.meta.env.BASE_URL}profile.jpg`}
               alt="Abir Hachlafi"
               style={{
                 width: '100%',

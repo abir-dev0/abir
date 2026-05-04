@@ -43,7 +43,7 @@ const Navbar = () => {
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <img
-          src="/logo.png"
+          src={`${import.meta.env.BASE_URL}logo.png`}
           alt="Abir Hachlafi Logo"
           style={{ height: '55px', width: 'auto', objectFit: 'contain' }}
           onError={(e) => {
