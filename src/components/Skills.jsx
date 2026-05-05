@@ -1,136 +1,133 @@
 import { motion } from 'framer-motion';
 import { 
   SiReact, SiRedux, SiJavascript, SiNodedotjs, SiExpress, SiLaravel, SiPython, SiDjango, SiCplusplus,
-  SiMongodb, SiMysql, SiApachecassandra, SiRedis, SiNeo4J
+  SiMongodb, SiMysql, SiApachecassandra, SiRedis, SiNeo4J, SiTypescript, SiTailwindcss, SiPostgresql, SiFramer
 } from 'react-icons/si';
 import { 
-  FaBrain, FaNetworkWired, FaDatabase, FaWater, FaProjectDiagram, FaGithub, FaDocker, FaCode, FaRobot, FaLinux, FaCss3Alt
+  FaGithub, FaDocker, FaCode, FaLinux, FaCss3Alt, FaHtml5, FaGitAlt, FaDatabase, FaMobileAlt
 } from 'react-icons/fa';
 
 const Skills = () => {
-  const skillCategories = [
-    {
-      title: 'Programming',
-      skills: [
-        { name: 'React.js', icon: <SiReact /> },
-        { name: 'Redux.js', icon: <SiRedux /> },
-        { name: 'CSS', icon: <FaCss3Alt /> },
-        { name: 'JavaScript', icon: <SiJavascript /> },
-        { name: 'Node.js', icon: <SiNodedotjs /> },
-        { name: 'Express.js', icon: <SiExpress /> },
-        { name: 'Laravel', icon: <SiLaravel /> },
-        { name: 'Python', icon: <SiPython /> },
-        { name: 'Django', icon: <SiDjango /> },
-        { name: 'C++', icon: <SiCplusplus /> }
-      ]
-    },
-    {
-      title: 'Databases',
-      skills: [
-        { name: 'MongoDB', icon: <SiMongodb /> },
-        { name: 'MySQL', icon: <SiMysql /> },
-        { name: 'Oracle', icon: <FaDatabase /> },
-        { name: 'Apache Cassandra', icon: <SiApachecassandra /> },
-        { name: 'Redis', icon: <SiRedis /> },
-        { name: 'Neo4J', icon: <SiNeo4J /> }
-      ]
-    },
-    {
-      title: 'Data & AI',
-      skills: [
-        { name: 'Machine Learning', icon: <FaBrain /> },
-        { name: 'Deep Learning', icon: <FaNetworkWired /> },
-        { name: 'Big Data', icon: <FaDatabase /> },
-        { name: 'Data Lakehouse', icon: <FaWater /> }
-      ]
-    },
-    {
-      title: 'Other',
-      skills: [
-        { name: 'UML', icon: <FaProjectDiagram /> },
-        { name: 'Git/GitHub', icon: <FaGithub /> },
-        { name: 'Docker', icon: <FaDocker /> },
-        { name: 'OOP', icon: <FaCode /> },
-        { name: 'LLM Tools', icon: <FaRobot /> },
-        { name: 'Linux/Unix', icon: <FaLinux /> }
-      ]
-    }
+  const row1 = [
+    { name: 'React.js', icon: <SiReact /> },
+    { name: 'JavaScript', icon: <SiJavascript /> },
+    { name: 'TypeScript', icon: <SiTypescript /> },
+    { name: 'Node.js', icon: <SiNodedotjs /> },
+    { name: 'Redux.js', icon: <SiRedux /> },
+    { name: 'Express.js', icon: <SiExpress /> },
+    { name: 'Tailwind CSS', icon: <SiTailwindcss /> },
+    { name: 'Responsive Design', icon: <FaMobileAlt /> },
+    { name: 'HTML5', icon: <FaHtml5 /> },
+    { name: 'CSS3', icon: <FaCss3Alt /> },
+    { name: 'Python', icon: <SiPython /> },
+    { name: 'Django', icon: <SiDjango /> }
   ];
 
+  const row2 = [
+    { name: 'MongoDB', icon: <SiMongodb /> },
+    { name: 'PostgreSQL', icon: <SiPostgresql /> },
+    { name: 'MySQL', icon: <SiMysql /> },
+    { name: 'Oracle', icon: <FaDatabase /> },
+    { name: 'Redis', icon: <SiRedis /> },
+    { name: 'Laravel', icon: <SiLaravel /> },
+    { name: 'Docker', icon: <FaDocker /> },
+    { name: 'Git', icon: <FaGitAlt /> },
+    { name: 'GitHub', icon: <FaGithub /> },
+    { name: 'C++', icon: <SiCplusplus /> }
+  ];
+
+  // Doubling the rows to ensure seamless looping
+  const fullRow1 = [...row1, ...row1];
+  const fullRow2 = [...row2, ...row2];
+
   return (
-    <section id="skills" className="section">
+    <section id="skills" className="section" style={{ overflow: 'hidden', padding: '10rem 0' }}>
       <div className="container">
-        <motion.h2
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          style={{ marginBottom: '4rem' }}
+          style={{ textAlign: 'center', marginBottom: '4rem' }}
         >
-          Technical Skills
-        </motion.h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '3rem' }}>
-          {skillCategories.map((category, index) => (
-            <motion.div
-              key={category.title}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2rem', gap: '1rem' }}>
-                <div style={{ height: '2px', flex: 1, background: 'linear-gradient(90deg, transparent, var(--border-color))' }} />
-                <h3 style={{ color: 'var(--text-primary)', margin: 0, fontSize: '1.4rem', fontWeight: '500', textTransform: 'uppercase', letterSpacing: '2px' }}>
-                  {category.title}
-                </h3>
-                <div style={{ height: '2px', flex: 1, background: 'linear-gradient(-90deg, transparent, var(--border-color))' }} />
-              </div>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))', gap: '1.5rem' }}>
-                {category.skills.map((skill) => (
-                  <motion.div
-                    key={skill.name}
-                    whileHover={{ y: -5, scale: 1.05 }}
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '1rem',
-                      padding: '1.5rem 1rem',
-                      background: 'var(--surface-color)',
-                      borderRadius: '1rem',
-                      border: '1px solid var(--border-color)',
-                      cursor: 'pointer',
-                      transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
-                      position: 'relative',
-                      overflow: 'hidden'
-                    }}
-                    onMouseOver={(e) => {
-                      e.currentTarget.style.borderColor = 'var(--accent-color)';
-                      e.currentTarget.style.boxShadow = '0 0 20px rgba(18, 194, 233, 0.1)';
-                    }}
-                    onMouseOut={(e) => {
-                      e.currentTarget.style.borderColor = 'var(--border-color)';
-                      e.currentTarget.style.boxShadow = 'none';
-                    }}
-                  >
-                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'var(--accent-gradient)', opacity: 0, transition: 'opacity 0.3s ease' }} className="top-glow" />
-                    <span style={{ color: 'var(--accent-color)', fontSize: '2.5rem', filter: 'drop-shadow(0 0 8px rgba(18, 194, 233, 0.4))' }}>
-                      {skill.icon}
-                    </span>
-                    <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', textAlign: 'center', fontWeight: '500' }}>
-                      {skill.name}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
+          <h2 style={{ marginBottom: '1.5rem' }}>Technical Stack</h2>
+          <p style={{ color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto' }}>
+            The tools and technologies I use to bring your ideas to life
+          </p>
+        </motion.div>
+      </div>
+
+      {/* Row 1 - Left to Right */}
+      <div style={{ marginBottom: '2rem', width: '100%' }}>
+        <motion.div
+          animate={{ x: [0, -2000] }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 30,
+              ease: "linear",
+            },
+          }}
+          style={{ display: 'flex', gap: '2rem', width: 'fit-content' }}
+        >
+          {fullRow1.map((skill, index) => (
+            <SkillCard key={`row1-${index}`} skill={skill} />
           ))}
-        </div>
+        </motion.div>
+      </div>
+
+      {/* Row 2 - Right to Left */}
+      <div style={{ width: '100%' }}>
+        <motion.div
+          animate={{ x: [-2000, 0] }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 35,
+              ease: "linear",
+            },
+          }}
+          style={{ display: 'flex', gap: '2rem', width: 'fit-content' }}
+        >
+          {fullRow2.map((skill, index) => (
+            <SkillCard key={`row2-${index}`} skill={skill} />
+          ))}
+        </motion.div>
       </div>
     </section>
   );
 };
+
+const SkillCard = ({ skill }) => (
+  <div
+    className="glass-panel"
+    style={{
+      flex: '0 0 auto',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '1.5rem',
+      padding: '1.25rem 2.5rem',
+      background: 'rgba(255, 255, 255, 0.02)',
+      border: '1px solid rgba(255, 255, 255, 0.05)',
+      borderRadius: '1rem',
+      cursor: 'default',
+      transition: 'all 0.3s ease'
+    }}
+  >
+    <span style={{ color: 'var(--accent-color)', fontSize: '1.8rem', display: 'flex' }}>
+      {skill.icon}
+    </span>
+    <span style={{ 
+      fontSize: '1.1rem', 
+      color: 'var(--text-primary)', 
+      fontWeight: '500',
+      whiteSpace: 'nowrap'
+    }}>
+      {skill.name}
+    </span>
+  </div>
+);
 
 export default Skills;

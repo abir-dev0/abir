@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,12 +18,25 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Education', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'About', href: '/#about' },
+    { name: 'Services', href: '/#services' },
+    { name: 'Skills', href: '/#skills' },
+    { name: 'Education', href: '/#experience' },
+    { name: 'Projects', href: '/#projects' },
+    { name: 'Contact', href: '/#contact' },
   ];
+
+  const handleLinkClick = (e, href) => {
+    if (isHomePage && href.startsWith('/#')) {
+      e.preventDefault();
+      const targetId = href.split('#')[1];
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        setIsOpen(false);
+      }
+    }
+  };
 
   return (
     <motion.nav
@@ -43,7 +59,7 @@ const Navbar = () => {
         transition: 'all 0.3s ease',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
         <img
           src={`${import.meta.env.BASE_URL}logo.png`}
           alt="Abir Hachlafi Logo"
@@ -56,12 +72,14 @@ const Navbar = () => {
         <span style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--accent-color)', display: 'none' }}>
           AH.
         </span>
-      </div>
+      </Link>
+
       <div className="desktop-nav" style={{ display: 'flex', gap: '2rem' }}>
         {navLinks.map((link) => (
           <a
             key={link.name}
             href={link.href}
+            onClick={(e) => handleLinkClick(e, link.href)}
             style={{
               color: 'var(--text-primary)',
               textDecoration: 'none',
@@ -111,7 +129,10 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
-                onClick={() => setIsOpen(false)}
+                onClick={(e) => {
+                  handleLinkClick(e, link.href);
+                  setIsOpen(false);
+                }}
                 style={{
                   color: 'var(--text-primary)',
                   textDecoration: 'none',
