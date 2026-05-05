@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,7 +57,7 @@ const Navbar = () => {
           AH.
         </span>
       </div>
-      <div style={{ display: 'flex', gap: '2rem' }}>
+      <div className="desktop-nav" style={{ display: 'flex', gap: '2rem' }}>
         {navLinks.map((link) => (
           <a
             key={link.name}
@@ -74,6 +76,56 @@ const Navbar = () => {
           </a>
         ))}
       </div>
+
+      <div 
+        className="mobile-nav-btn" 
+        onClick={() => setIsOpen(!isOpen)}
+        style={{ cursor: 'pointer', color: 'var(--text-primary)', zIndex: 60 }}
+      >
+        {isOpen ? <X size={28} /> : <Menu size={28} />}
+      </div>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              position: 'absolute',
+              top: '100%',
+              left: 0,
+              right: 0,
+              background: 'rgba(5, 5, 5, 0.95)',
+              backdropFilter: 'blur(10px)',
+              borderBottom: '1px solid var(--border-color)',
+              padding: '2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '1.5rem',
+            }}
+          >
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                style={{
+                  color: 'var(--text-primary)',
+                  textDecoration: 'none',
+                  fontWeight: 500,
+                  fontSize: '1.2rem',
+                  transition: 'color 0.3s ease',
+                }}
+              >
+                {link.name}
+              </a>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 };

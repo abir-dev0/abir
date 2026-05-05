@@ -143,3 +143,37 @@ h2 {
   z-index: -1;
   pointer-events: none;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section {
+    padding: 4rem 1.5rem;
+  }
+
+  .glass-panel {
+    padding: 1.5rem;
+  }
+
+  .desktop-nav {
+    display: none !important;
+  }
+
+  .mobile-nav-btn {
+    display: block !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-nav-btn {
+    display: none !important;
+  }
+}

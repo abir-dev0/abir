@@ -69,7 +69,7 @@ const Skills = () => {
         >
           Technical Skills
         </motion.h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '3rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '3rem' }}>
           {skillCategories.map((category, index) => (
             <motion.div
               key={category.title}
