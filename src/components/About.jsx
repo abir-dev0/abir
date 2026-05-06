@@ -30,18 +30,15 @@ const About = () => {
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'center' }}>
               <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', lineHeight: '1.8', maxWidth: '750px' }}>
-                I’m a full-stack web developer passionate about building modern, high-quality websites that help businesses grow online. My focus is on creating clean, fast, and user-friendly digital experiences that deliver real value.
-              </p>
+I’m a full-stack web developer passionate about building modern, scalable applications that combine clean design with strong functionality and user experience.              </p>
               
               <div style={{ width: '50px', height: '2px', background: 'var(--accent-gradient)', opacity: 0.3 }} />
 
               <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', lineHeight: '1.8', maxWidth: '750px' }}>
-                I specialize in building websites for <strong>businesses, personal brands, and clothing brands</strong> that want to strengthen their online presence and attract more customers.
-              </p>
-
+Alongside web development, I am actively learning Artificial Intelligence and exploring how to integrate AI models into real-world applications. I enjoy working at the intersection of software engineering and intelligent systems.                            
+</p>
               <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', lineHeight: '1.8', maxWidth: '750px' }}>
-                Alongside web development, I’m deeply interested in <strong>AI and data-driven solutions</strong>. I can integrate smart features like chatbots, recommendations, and dashboards to make websites more interactive and intelligent.
-              </p>
+I specialize in building full-stack applications and AI-powered systems. My work involves developing backend systems, designing APIs, and creating responsive frontend interfaces using modern web technologies.              </p>
 
               <div style={{ 
                 marginTop: '1rem',
@@ -54,7 +51,7 @@ const About = () => {
                 fontWeight: '500',
                 maxWidth: '700px'
               }}>
-                "Whether you need a simple brochure website or a full-featured web application, I’m here to help you create a professional online presence that reflects your brand."
+                "Whether you need a full-stack web application or an AI-powered system, I can help you design and build a scalable, efficient, and user-focused solution."
               </div>
             </div>
           </div>
