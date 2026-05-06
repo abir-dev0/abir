@@ -36,7 +36,7 @@ const About = () => {
               <div style={{ width: '50px', height: '2px', background: 'var(--accent-gradient)', opacity: 0.3 }} />
 
               <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', lineHeight: '1.8', maxWidth: '750px' }}>
-                I specialize in building websites for <strong>small businesses, personal brands, and clothing brands</strong> that want to strengthen their online presence and attract more customers.
+                I specialize in building websites for <strong>businesses, personal brands, and clothing brands</strong> that want to strengthen their online presence and attract more customers.
               </p>
 
               <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', lineHeight: '1.8', maxWidth: '750px' }}>

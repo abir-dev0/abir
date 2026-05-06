@@ -1,5 +1,33 @@
 export const projects = [
   {
+    id: 'lexiva-ai',
+    title: 'Lexiva AI - Research Assistant',
+    shortDescription: 'Advanced AI-powered research assistant designed to automate literature reviews.',
+    fullDescription: 'Lexiva AI is an advanced AI-powered research assistant designed to automate the heavy lifting of literature reviews. It allows researchers to upload multiple scientific papers and receive both granular and bird\'s-eye views of a specific research field. Features a multi-step pipeline that ensures data integrity and handles complex academic context.',
+    problemSolved: 'Literature reviews are incredibly time-consuming and cognitively demanding. Lexiva AI automates the extraction of key insights and synthesizes findings across multiple documents to identify research gaps and future directions.',
+    techStack: ['Python', 'FastAPI', 'LangChain', 'Google Gemini', 'React', 'Vanilla CSS'],
+    techStackDetails: [
+      { name: 'FastAPI', role: 'High-Performance Asynchronous Backend' },
+      { name: 'LangChain', role: 'Multi-Step AI Agent Orchestration' },
+      { name: 'Google Gemini', role: 'Advanced Academic Text Processing' },
+      { name: 'React', role: 'Modern Glassmorphism UI' },
+      { name: 'PyMuPDF', role: 'Precision PDF Data Extraction' },
+      { name: 'Pydantic', role: 'Structured AI Response Validation' }
+    ],
+    link: '#',
+    github: '#',
+    image: '/projects/lexivaai.png',
+    screenshots: [
+      '/projects/lexivaai-1.png',
+      '/projects/lexivaai-2.png',
+      '/projects/lexivaai-3.png',
+      '/projects/lexivaai-4.png',
+      '/projects/lexivaai-5.png',
+      '/projects/lexivaai-6.png',
+      '/projects/lexivaai-7.png'
+    ]
+  },
+  {
     id: 'personal-portfolio',
     title: 'Cosmic Fusion - Personal Portfolio',
     shortDescription: 'A premium, high-impact developer portfolio featuring advanced animations and a modern cosmic aesthetic.',

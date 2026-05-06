@@ -6,7 +6,7 @@ const Contact = () => {
   return (
     <section id="contact" className="section contact-section">
       <div className="container">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -26,7 +26,7 @@ const Contact = () => {
 
         <div className="contact-container-modern">
           {/* Left Side: Enhanced 3D Profile */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -36,20 +36,20 @@ const Contact = () => {
             <div className="profile-main-container">
               {/* Rotating Decorative Ring */}
               <div className="profile-decorative-ring" />
-              
+
               {/* Floating Glows */}
               <div className="glow-blob" style={{ background: 'var(--accent-color)', top: '-50px', left: '-50px', opacity: 0.3 }} />
               <div className="glow-blob" style={{ background: '#C471ED', bottom: '-50px', right: '-50px', opacity: 0.3 }} />
 
-              <motion.div 
+              <motion.div
                 whileHover={{ rotateY: 15, rotateX: -10, scale: 1.02 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 className="profile-frame-layered"
               >
                 <div className="profile-card-stack">
-                  <img 
-                    src={`${import.meta.env.BASE_URL}profile.jpg`} 
-                    alt="Abir Hachlafi" 
+                  <img
+                    src={`${import.meta.env.BASE_URL}profile.jpg`}
+                    alt="Abir Hachlafi"
                     className="profile-img-styled"
                     onError={(e) => { e.target.src = 'https://via.placeholder.com/450'; }}
                   />
@@ -58,7 +58,7 @@ const Contact = () => {
                 </div>
 
                 {/* Experience Badge */}
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, scale: 0.5 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
@@ -86,8 +86,8 @@ const Contact = () => {
               className="glass-panel form-container"
               style={{ width: '100%' }}
             >
-              <form 
-                action="https://formspree.io/f/xvzlrzly" 
+              <form
+                action="https://formspree.io/f/xvzlrzly"
                 method="POST"
                 style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
               >
@@ -123,7 +123,7 @@ const Contact = () => {
             </motion.div>
 
             {/* Social Circles Row */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
