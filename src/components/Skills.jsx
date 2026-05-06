@@ -19,6 +19,7 @@ const Skills = () => {
     { name: 'Responsive Design', icon: <FaMobileAlt /> },
     { name: 'HTML5', icon: <FaHtml5 /> },
     { name: 'CSS3', icon: <FaCss3Alt /> },
+    { name: 'Vanilla CSS', icon: <FaCss3Alt /> },
     { name: 'Python', icon: <SiPython /> },
     { name: 'Django', icon: <SiDjango /> }
   ];
