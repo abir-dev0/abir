@@ -134,7 +134,7 @@ const Contact = () => {
               <a href="mailto:abirhachlafi1@gmail.com" className="social-circle" title="Email Me">
                 <Mail size={24} />
               </a>
-              <a href="https://www.linkedin.com/in/abir-hachlafi-b85101336/" target="_blank" rel="noopener noreferrer" className="social-circle" title="LinkedIn">
+              <a href="https://www.linkedin.com/in/abirhachlafi/" target="_blank" rel="noopener noreferrer" className="social-circle" title="LinkedIn">
                 <FaLinkedin size={24} />
               </a>
             </motion.div>

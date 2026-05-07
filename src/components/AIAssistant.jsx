@@ -148,7 +148,7 @@ const AIAssistant = () => {
       response: "You can reach Abir via the contact form on this site, or follow her work on LinkedIn and GitHub. I can also help you scroll directly to her contact info!",
       ctas: [
         { label: "Contact Now", action: "scroll", target: "contact", icon: <Mail size={14} /> },
-        { label: "LinkedIn", action: "link", url: "https://www.linkedin.com/in/abir-hachlafi-268808266/", icon: <FaLinkedin size={14} /> }
+        { label: "LinkedIn", action: "link", url: "https://www.linkedin.com/in/abirhachlafi/", icon: <FaLinkedin size={14} /> }
       ]
     },
 

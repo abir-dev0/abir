@@ -81,7 +81,7 @@ const Hero = () => {
             </a>
 
             <div style={{ display: 'flex', gap: '1rem' }}>
-              <a href="https://www.linkedin.com/in/abir-hachlafi-b85101336/" target="_blank" rel="noopener noreferrer" className="social-icon">
+              <a href="https://www.linkedin.com/in/abirhachlafi/" target="_blank" rel="noopener noreferrer" className="social-icon">
                 <FaLinkedin size={22} />
               </a>
             </div>
