@@ -74,7 +74,7 @@ const Navbar = () => {
         </span>
       </Link>
 
-      <div className="desktop-nav" style={{ display: 'flex', gap: '2rem' }}>
+      <div className="desktop-nav" style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
         {navLinks.map((link) => (
           <a
             key={link.name}
