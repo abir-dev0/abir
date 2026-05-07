@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Mail, User, MessageSquare, Send } from 'lucide-react';
+import { Mail, User, MessageSquare, Send, ArrowRight } from 'lucide-react';
 import { FaLinkedin } from 'react-icons/fa';
 
 const Contact = () => {
@@ -86,6 +86,7 @@ const Contact = () => {
               className="glass-panel form-container"
               style={{ width: '100%' }}
             >
+
               <form
                 action="https://formspree.io/f/xvzlrzly"
                 method="POST"

@@ -10,6 +10,7 @@ import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import SpaceBackground from './components/SpaceBackground';
 import ProjectDetail from './pages/ProjectDetail';
+import AIAssistant from './components/AIAssistant';
 
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -47,6 +48,7 @@ function App() {
     <Router>
       <SpaceBackground />
       <Navbar />
+      <AIAssistant />
       <main>
         <Routes>
           <Route path="/" element={<Home />} />

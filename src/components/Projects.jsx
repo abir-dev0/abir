@@ -150,6 +150,70 @@ const Projects = () => {
               </div>
             </motion.div>
           ))}
+          
+          {/* Ask AI Card */}
+          <motion.div
+            className="glass-panel"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: projects.length * 0.1 }}
+            onClick={() => window.dispatchEvent(new CustomEvent('open-ai'))}
+            style={{ 
+              display: 'flex', 
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '2rem',
+              border: '2px dashed rgba(18, 194, 233, 0.3)',
+              cursor: 'pointer',
+              background: 'rgba(18, 194, 233, 0.02)',
+              minHeight: '400px',
+              textAlign: 'center',
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+            whileHover={{ 
+              scale: 1.02, 
+              borderColor: 'rgba(18, 194, 233, 0.6)',
+              background: 'rgba(18, 194, 233, 0.05)'
+            }}
+          >
+            <div style={{
+              width: '80px',
+              height: '80px',
+              borderRadius: '50%',
+              background: 'var(--accent-gradient)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: '1.5rem',
+              boxShadow: '0 10px 20px rgba(18, 194, 233, 0.3)'
+            }}>
+              <motion.div
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+              >
+                <Code size={40} color="white" />
+              </motion.div>
+            </div>
+            
+            <h3 style={{ fontSize: '1.5rem', color: 'var(--text-primary)', marginBottom: '1rem' }}>
+              Looking for something specific?
+            </h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: '1.6', marginBottom: '2rem' }}>
+              My AI Assistant can tell you about my ERP system, SaaS projects, or AI integrations in detail.
+            </p>
+            
+            <button className="btn btn-primary" style={{ padding: '0.75rem 2rem', borderRadius: '1rem' }}>
+              Ask My AI
+            </button>
+
+            {/* Decorative Sparkles */}
+            <div style={{ position: 'absolute', top: '10px', right: '10px', opacity: 0.3 }}>
+              <Code size={100} style={{ transform: 'rotate(15deg)', color: 'var(--accent-color)' }} />
+            </div>
+          </motion.div>
         </div>
       </div>
       <style jsx>{`

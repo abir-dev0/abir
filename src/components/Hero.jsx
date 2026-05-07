@@ -14,15 +14,15 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
           style={{ flex: '1 1 500px' }}
         >
-          
+
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            style={{ 
-              fontSize: '4.5rem', 
-              fontWeight: '100', 
-              lineHeight: '1.1', 
+            style={{
+              fontSize: '4.5rem',
+              fontWeight: '100',
+              lineHeight: '1.1',
               marginBottom: '1rem',
               letterSpacing: '-2px'
             }}
@@ -31,11 +31,11 @@ const Hero = () => {
           </motion.h1>
 
           <motion.div
-            style={{ 
-              textAlign: 'left', 
-              color: 'var(--text-primary)', 
-              marginBottom: '2rem', 
-              fontSize: '1.8rem', 
+            style={{
+              textAlign: 'left',
+              color: 'var(--text-primary)',
+              marginBottom: '2rem',
+              fontSize: '1.8rem',
               fontWeight: '100',
               display: 'flex',
               alignItems: 'center',
@@ -79,7 +79,7 @@ const Hero = () => {
             }}>
               Start a Project <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} />
             </a>
-            
+
             <div style={{ display: 'flex', gap: '1rem' }}>
               <a href="https://www.linkedin.com/in/abir-hachlafi-b85101336/" target="_blank" rel="noopener noreferrer" className="social-icon">
                 <FaLinkedin size={22} />
@@ -112,10 +112,10 @@ const Hero = () => {
             zIndex: 1,
             transform: 'rotate(-3deg)'
           }}>
-            <div style={{ 
-              width: '100%', 
-              height: '100%', 
-              borderRadius: '1.5rem', 
+            <div style={{
+              width: '100%',
+              height: '100%',
+              borderRadius: '1.5rem',
               overflow: 'hidden',
               position: 'relative',
               boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)'
@@ -133,22 +133,22 @@ const Hero = () => {
                 }}
               />
               {/* Image Overlay */}
-              <div style={{ 
-                position: 'absolute', 
-                inset: 0, 
-                background: 'linear-gradient(to bottom, transparent 60%, rgba(5, 5, 5, 0.6))' 
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(to bottom, transparent 60%, rgba(5, 5, 5, 0.6))'
               }} />
             </div>
-            
+
             {/* Tech Badges */}
-            <motion.div 
+            <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              style={{ position: 'absolute', top: '-20px', right: '-20px', background: 'var(--accent-gradient)', padding: '0.75rem 1.25rem', borderRadius: '1rem', color: 'white', fontWeight: '400', boxShadow: '0 10px 20px rgba(0,0,0,0.2)' , }}
+              style={{ position: 'absolute', top: '-20px', right: '-20px', background: 'var(--accent-gradient)', padding: '0.75rem 1.25rem', borderRadius: '1rem', color: 'white', fontWeight: '400', boxShadow: '0 10px 20px rgba(0,0,0,0.2)', }}
             >
               Full-Stack
             </motion.div>
-            <motion.div 
+            <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
               style={{ position: 'absolute', bottom: '20px', left: '-30px', background: 'rgba(5, 5, 5, 0.8)', border: '1px solid var(--accent-color)', padding: '0.75rem 1.25rem', borderRadius: '1rem', color: 'var(--accent-color)', fontWeight: '400', backdropFilter: 'blur(10px)' }}
