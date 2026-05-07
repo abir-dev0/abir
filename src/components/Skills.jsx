@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
-import { 
+import {
   SiReact, SiRedux, SiJavascript, SiNodedotjs, SiExpress, SiLaravel, SiPython, SiDjango, SiCplusplus,
   SiMongodb, SiMysql, SiApachecassandra, SiRedis, SiNeo4J, SiTypescript, SiTailwindcss, SiPostgresql, SiFramer
 } from 'react-icons/si';
-import { 
+import {
   FaGithub, FaDocker, FaCode, FaLinux, FaCss3Alt, FaHtml5, FaGitAlt, FaDatabase, FaMobileAlt
 } from 'react-icons/fa';
 
@@ -120,9 +120,9 @@ const SkillCard = ({ skill }) => (
     <span style={{ color: 'var(--accent-color)', fontSize: '1.8rem', display: 'flex' }}>
       {skill.icon}
     </span>
-    <span style={{ 
-      fontSize: '1.1rem', 
-      color: 'var(--text-primary)', 
+    <span style={{
+      fontSize: '1.1rem',
+      color: 'var(--text-primary)',
       fontWeight: '500',
       whiteSpace: 'nowrap'
     }}>

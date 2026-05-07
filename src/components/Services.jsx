@@ -1,43 +1,43 @@
 import { motion } from 'framer-motion';
-import { Globe, ShoppingBag, Zap, RefreshCw, Rocket, Bot, Check, MessageSquare } from 'lucide-react';
+import { Globe, Building2, Layout, Bot, Users, Zap, Check, MessageSquare } from 'lucide-react';
 
 const Services = () => {
   const services = [
     {
+      icon: <Building2 size={32} />,
+      title: 'Business Management Systems',
+      description: 'Custom web-based systems designed to help businesses manage operations, orders, clients, inventory, and workflows efficiently.',
+      features: ['ERP & dashboard systems', 'Role-based access management', 'Order & inventory tracking', 'Business analytics & reporting']
+    },
+    {
       icon: <Globe size={32} />,
-      title: 'Business Websites',
-      description: 'I build clean and professional websites that represent your brand and help you attract more clients.',
-      features: ['Responsive on all devices', 'Modern and clean design', 'Fast and optimized performance']
+      title: 'Full-Stack Web Applications',
+      description: 'Modern, scalable, and responsive web applications built with clean architecture and optimized performance.',
+      features: ['React & Node.js applications', 'Authentication & API integration', 'Responsive UI/UX', 'Secure backend systems']
     },
     {
-      icon: <ShoppingBag size={32} />,
-      title: 'E-commerce / Brand Websites',
-      description: 'Perfect for clothing brands and small businesses that want a strong online presence.',
-      features: ['Product showcase pages', 'User-friendly interface', 'Scalable and easy to manage']
-    },
-    {
-      icon: <Zap size={32} />,
-      title: 'Landing Pages',
-      description: 'High-converting landing pages designed to turn visitors into customers.',
-      features: ['Clear structure and messaging', 'Fast loading speed', 'Optimized for conversions']
-    },
-    {
-      icon: <RefreshCw size={32} />,
-      title: 'Website Redesign',
-      description: 'Already have a website? I can improve it to make it modern, clean, and more effective.',
-      features: ['Better user experience', 'Improved design', 'Mobile optimization']
-    },
-    {
-      icon: <Rocket size={32} />,
-      title: 'Performance Optimization',
-      description: 'I improve your website speed and overall performance.',
-      features: ['Faster loading time', 'Better user experience', 'Clean and optimized code']
+      icon: <Layout size={32} />,
+      title: 'SaaS & Dashboard Platforms',
+      description: 'Interactive platforms and dashboards designed for startups, businesses, and data-driven applications.',
+      features: ['Admin dashboards', 'Analytics & reporting tools', 'Real-time features', 'Multi-user systems']
     },
     {
       icon: <Bot size={32} />,
-      title: 'AI & Data Features',
-      description: 'Add smart features to your website to stand out.',
-      features: ['Chatbots for customer interaction', 'Simple recommendation systems', 'Basic dashboards & automation']
+      title: 'AI & Data-Driven Features',
+      description: 'Smart features that improve user experience and automate workflows using modern AI technologies.',
+      features: ['AI-powered assistants', 'Intelligent dashboards', 'Automation workflows', 'Data visualization & insights']
+    },
+    {
+      icon: <Users size={32} />,
+      title: 'Community & Interactive Platforms',
+      description: 'Platforms focused on communication, engagement, and user interaction.',
+      features: ['Messaging systems', 'User-generated content', 'Community features', 'Real-time interactions']
+    },
+    {
+      icon: <Zap size={32} />,
+      title: 'Performance & Optimization',
+      description: 'Improving speed, responsiveness, and overall user experience for modern web applications.',
+      features: ['Performance optimization', 'Clean scalable code', 'Mobile responsiveness', 'UI/UX improvements']
     }
   ];
 
@@ -45,10 +45,10 @@ const Services = () => {
     <section id="services" className="section">
       <div className="container">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.3 }}
           style={{ textAlign: 'center', marginBottom: '4rem' }}
         >
           <h2 style={{ marginBottom: '1rem' }}>What I can do for you ?</h2>
@@ -65,10 +65,15 @@ const Services = () => {
             <motion.div
               key={index}
               className="glass-panel"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-20px" }}
+              transition={{ 
+                type: "spring",
+                stiffness: 300,
+                damping: 30,
+                delay: index * 0.01
+              }}
               whileHover={{ y: -10, borderColor: 'var(--accent-color)' }}
               style={{ 
                 padding: '2.5rem',
