@@ -268,6 +268,7 @@ const AIAssistant = () => {
     <>
       {/* Floating Button */}
       <motion.div
+        className="ai-assistant-wrapper"
         style={{
           position: 'fixed',
           bottom: '2rem',
