@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Download } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
@@ -93,6 +93,23 @@ const Navbar = () => {
             {link.name}
           </a>
         ))}
+        
+        <a 
+          href={`${import.meta.env.BASE_URL}Abir Hachlafi.pdf`}
+          download="Abir_Hachlafi_Resume.pdf"
+          className="btn btn-primary"
+          style={{ 
+            padding: '0.5rem 1.25rem', 
+            fontSize: '0.85rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            borderRadius: '0.75rem'
+          }}
+        >
+          <Download size={16} />
+          Resume
+        </a>
       </div>
 
       <div 
@@ -144,6 +161,26 @@ const Navbar = () => {
                 {link.name}
               </a>
             ))}
+            
+            <a 
+              href={`${import.meta.env.BASE_URL}Abir Hachlafi.pdf`}
+              download="Abir_Hachlafi_Resume.pdf"
+              className="btn btn-primary"
+              style={{ 
+                padding: '0.75rem 2rem', 
+                fontSize: '1.1rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                borderRadius: '1rem',
+                width: '100%',
+                justifyContent: 'center'
+              }}
+              onClick={() => setIsOpen(false)}
+            >
+              <Download size={20} />
+              Resume
+            </a>
           </motion.div>
         )}
       </AnimatePresence>
