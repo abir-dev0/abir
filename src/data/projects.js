@@ -108,8 +108,8 @@ export const projects = [
     screenshots: []
   },
   {
-    id: 'aram-erp',
-    title: 'ARAM - Full-Stack ERP System',
+    id: 'erp',
+    title: 'Full-Stack ERP System',
     shortDescription: 'A comprehensive ERP solution for managing business operations, from logistics to order processing.',
     fullDescription: 'ARAM is a robust, full-stack Enterprise Resource Planning (ERP) system designed to centralize and automate core business processes. It provides a unified platform for managing clients, orders, stock inventory, production workflows, and complex logistics operations.',
     problemSolved: 'Fragmented business data leads to inefficiencies and errors. ARAM automates workflows like order processing and inventory updates, providing real-time visibility and performance tracking for smarter decision-making.',

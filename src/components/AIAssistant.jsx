@@ -8,52 +8,52 @@ const RobotIcon = ({ size = 32, isTyping = false }) => {
     <div style={{ position: 'relative', width: size, height: size, display: 'flex', alignItems: 'center', justifyItems: 'center' }}>
       <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         {/* Antenna */}
-        <motion.circle 
-          cx="20" cy="5" r="2" 
+        <motion.circle
+          cx="20" cy="5" r="2"
           fill="#12c2e9"
           animate={{ opacity: [0.4, 1, 0.4], scale: [1, 1.2, 1] }}
           transition={{ repeat: Infinity, duration: 2 }}
         />
         <rect x="19" y="5" width="2" height="5" fill="#333" />
-        
+
         {/* Head */}
         <rect x="8" y="10" width="24" height="22" rx="6" fill="#1a1a2e" stroke="#12c2e9" strokeWidth="1.5" />
-        
+
         {/* Screen/Face */}
         <rect x="11" y="13" width="18" height="14" rx="3" fill="#0f0f1a" />
-        
+
         {/* Eyes */}
-        <motion.rect 
+        <motion.rect
           x="14" y="17" width="4" height="4" rx="1" fill="#12c2e9"
-          animate={{ 
+          animate={{
             scaleY: [1, 1, 0.1, 1],
             opacity: isTyping ? [1, 0.5, 1] : 1
           }}
-          transition={{ 
+          transition={{
             scaleY: { repeat: Infinity, duration: 4, times: [0, 0.9, 0.95, 1] },
             opacity: { repeat: Infinity, duration: 0.5 }
           }}
         />
-        <motion.rect 
+        <motion.rect
           x="22" y="17" width="4" height="4" rx="1" fill="#12c2e9"
-          animate={{ 
+          animate={{
             scaleY: [1, 1, 0.1, 1],
             opacity: isTyping ? [1, 0.5, 1] : 1
           }}
-          transition={{ 
+          transition={{
             scaleY: { repeat: Infinity, duration: 4, times: [0, 0.9, 0.95, 1] },
             opacity: { repeat: Infinity, duration: 0.5 }
           }}
         />
 
         {/* Mouth/Smile */}
-        <motion.path 
-          d="M15 24 Q20 28 25 24" 
-          stroke="#12c2e9" 
-          strokeWidth="1.5" 
+        <motion.path
+          d="M15 24 Q20 28 25 24"
+          stroke="#12c2e9"
+          strokeWidth="1.5"
           strokeLinecap="round"
           fill="none"
-          animate={{ 
+          animate={{
             d: isTyping ? "M14 24 Q20 30 26 24" : "M15 24 Q20 28 25 24",
             scaleQ: isTyping ? 1.2 : 1
           }}
@@ -61,7 +61,7 @@ const RobotIcon = ({ size = 32, isTyping = false }) => {
         />
       </svg>
       {/* Background Glow */}
-      <motion.div 
+      <motion.div
         style={{
           position: 'absolute',
           inset: -5,
@@ -79,8 +79,8 @@ const RobotIcon = ({ size = 32, isTyping = false }) => {
 const AIAssistant = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { 
-      type: 'ai', 
+    {
+      type: 'ai',
       text: "Hi! I’m Abir’s AI assistant 👋 I can tell you about her projects, skills, services, and education.",
       isInitial: true
     }
@@ -221,7 +221,7 @@ const AIAssistant = () => {
           const regex = new RegExp(`\\b${keyword}\\b`, 'i');
           return regex.test(lowerText);
         });
-        
+
         if (found) {
           bestMatch = item;
           setLastContext(item);
@@ -235,8 +235,8 @@ const AIAssistant = () => {
         const isFollowUp = followUpKeywords.some(k => lowerText.includes(k));
 
         if (isFollowUp) {
-          bestMatch = lastContext.contextResponse ? 
-            { ...lastContext, response: lastContext.contextResponse } : 
+          bestMatch = lastContext.contextResponse ?
+            { ...lastContext, response: lastContext.contextResponse } :
             lastContext;
         }
       }
@@ -251,7 +251,7 @@ const AIAssistant = () => {
       } else {
         responseText = "I can help you explore Abir’s projects, AI work, SaaS platforms, or technical skills. Try asking about her ERP system or AI projects!";
       }
-      
+
       setMessages(prev => [...prev, { type: 'ai', text: responseText, ctas: responseCtas }]);
       setIsTyping(false);
     }, typingDelay);
@@ -308,7 +308,7 @@ const AIAssistant = () => {
         <motion.button
           className="ai-toggle-btn"
           onClick={() => setIsOpen(!isOpen)}
-          animate={{ 
+          animate={{
             y: [0, -10, 0],
           }}
           transition={{
@@ -411,12 +411,12 @@ const AIAssistant = () => {
                   </div>
                 </div>
               </div>
-              <button 
+              <button
                 onClick={() => setIsOpen(false)}
-                style={{ 
-                  background: 'none', 
-                  border: 'none', 
-                  color: 'rgba(255, 255, 255, 0.5)', 
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: 'rgba(255, 255, 255, 0.5)',
                   cursor: 'pointer',
                   padding: '4px',
                   borderRadius: '50%',
@@ -496,11 +496,11 @@ const AIAssistant = () => {
                   )}
 
                   {msg.isInitial && (
-                    <div style={{ 
-                        marginTop: '0.4rem', 
-                        display: 'flex', 
-                        flexWrap: 'wrap', 
-                        gap: '0.5rem' 
+                    <div style={{
+                      marginTop: '0.4rem',
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      gap: '0.5rem'
                     }}>
                       {quickButtons.map((btn, bIdx) => (
                         <button
@@ -536,7 +536,7 @@ const AIAssistant = () => {
                   )}
                 </motion.div>
               ))}
-              
+
               {isTyping && (
                 <div style={{
                   alignSelf: 'flex-start',
@@ -555,7 +555,7 @@ const AIAssistant = () => {
             </div>
 
             {/* Input Area */}
-            <form 
+            <form
               onSubmit={(e) => { e.preventDefault(); handleSend(); }}
               style={{
                 padding: '1.25rem',
@@ -565,7 +565,7 @@ const AIAssistant = () => {
                 gap: '0.75rem'
               }}
             >
-              <input 
+              <input
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
