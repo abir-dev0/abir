@@ -73,11 +73,13 @@ export const projects = [
     shortDescription: 'A community-driven platform for exploring Moroccan cities and sharing tourist experiences.',
     fullDescription: 'MyTravelCircle is a collaborative web platform designed to promote Moroccan tourism. It allows users to discover hidden gems, share their travel stories, and contribute to a growing database of local attractions.',
     problemSolved: 'Finding authentic, user-contributed information about local Moroccan cities can be difficult. MyTravelCircle centralizes these experiences into a collaborative community hub.',
-    techStack: ['Django', 'Tailwind CSS', 'Python'],
+    techStack: ['Django', 'Tailwind CSS', 'Python', 'PostgreSQL','Community Features'],
     techStackDetails: [
       { name: 'Django', role: 'Backend Architecture and Community Features' },
       { name: 'Tailwind CSS', role: 'Modern, Responsive Design' },
-      { name: 'Python', role: 'Data Management and Logic' }
+      { name: 'Python', role: 'Data Management and Logic' },
+      { name: 'PostgreSQL', role: 'Database Management' },
+      { name: 'Community Features', role: 'User Reviews, Ratings, and Recommendations' }
     ],
     link: '#',
     github: '#',
@@ -113,11 +115,13 @@ export const projects = [
     shortDescription: 'A comprehensive ERP solution for managing business operations, from logistics to order processing.',
     fullDescription: 'Full-stack Enterprise Resource Planning (ERP) system designed to centralize and automate core business processes. It provides a unified platform for managing clients, orders, stock inventory, production workflows, and complex logistics operations.',
     problemSolved: 'Fragmented business data leads to inefficiencies and errors. ARAM automates workflows like order processing and inventory updates, providing real-time visibility and performance tracking for smarter decision-making.',
-    techStack: ['Django', 'SQL', 'Tailwind CSS'],
+    techStack: ['Django', 'PostgreSQL', 'Tailwind CSS', 'Excel Export', 'Chart.js'],
     techStackDetails: [
       { name: 'Django', role: 'Full-Stack Framework and Business Logic' },
-      { name: 'SQL', role: 'Database Design for Complex Business Data' },
-      { name: 'Tailwind CSS', role: 'Streamlined Admin Dashboard and UI' }
+      { name: 'PostgreSQL', role: 'Database Design for Complex Business Data' },
+      { name: 'Tailwind CSS', role: 'Streamlined Admin Dashboard and UI' },
+      { name: 'Excel Export', role: 'API Development for Data Exchange' },
+      { name: 'Chart.js', role: 'Data Visualization and Analytics' }
     ],
     link: '#',
     github: '#',
@@ -148,26 +152,7 @@ export const projects = [
       '/projects/peak-1.png',
       '/projects/peak-2.png',
     ]
-  },
-  {
-    id: 'doc-management',
-    title: 'Document Management System',
-    shortDescription: 'A secure document management system with different user roles.',
-    fullDescription: 'This system provides a centralized repository for sensitive documents, ensuring data integrity and access control across different organizational roles.',
-    problemSolved: 'Physical document storage is insecure and hard to search. This digital system allows instant retrieval and secure role-based access to any file.',
-    techStack: ['Python', 'Django'],
-    techStackDetails: [
-      { name: 'Python', role: 'Backend Logic' },
-      { name: 'Django', role: 'Web Framework and Security' }
-    ],
-    link: '#',
-    github: '#',
-    image: '/projects/dms.png',
-    screenshots: [
-      '/projects/dms-1.png',
-      '/projects/dms-2.png'
-    ]
-  },
+  }
   
   /*
   {

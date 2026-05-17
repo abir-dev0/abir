@@ -42,6 +42,11 @@ const Certifications = () => {
       name: 'React Native - Meta', 
       file: `${import.meta.env.BASE_URL}certs/cert8.pdf`,
       image: `${import.meta.env.BASE_URL}certs/cert8.jpg`
+    },
+    {
+      name: "Agile Project Management",
+      file: `${import.meta.env.BASE_URL}certs/cert9.pdf`,
+      image: `${import.meta.env.BASE_URL}certs/cert9.jpg`
     }
   ];
 
