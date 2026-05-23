@@ -595,33 +595,19 @@ h2 {
   padding: 2rem 0;
   display: flex;
   margin: 0 auto;
-}
-
-.marquee-container::before,
-.marquee-container::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 10%;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.marquee-container::before {
-  left: 0;
-  background: linear-gradient(to right, var(--bg-color), rgba(5, 5, 5, 0));
-}
-
-.marquee-container::after {
-  right: 0;
-  background: linear-gradient(to left, var(--bg-color), rgba(5, 5, 5, 0));
+  /* Premium mask fade at left and right edges */
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
 }
 
 .marquee-track {
   display: flex;
   width: max-content;
   animation: marquee 35s linear infinite;
+  /* GPU acceleration to prevent subpixel layout flickering / lines */
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .marquee-track:hover {
