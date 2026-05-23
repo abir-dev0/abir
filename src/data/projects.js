@@ -3,9 +3,9 @@ export const projects = [
     id: 'lexiva-ai',
     title: 'Lexiva AI - Research Assistant',
     shortDescription: 'Advanced AI-powered research assistant designed to automate literature reviews.',
-    fullDescription:'Lexiva AI is an advanced AI-powered research assistant designed to automate literature reviews through a multi-agent architecture. Researchers can upload scientific papers and receive both granular and high-level insights across entire research domains. The platform combines FastAPI, LangChain, Google Gemini, and n8n workflow orchestration to manage complex AI pipelines, document processing, semantic retrieval, and structured synthesis generation.',
+    fullDescription: 'Lexiva AI is an advanced AI-powered research assistant designed to automate literature reviews through a multi-agent architecture. Researchers can upload scientific papers and receive both granular and high-level insights across entire research domains. The platform combines FastAPI, LangChain, Google Gemini, and n8n workflow orchestration to manage complex AI pipelines, document processing, semantic retrieval, and structured synthesis generation.',
     problemSolved: 'Literature reviews are incredibly time-consuming and cognitively demanding. Lexiva AI automates the extraction of key insights and synthesizes findings across multiple documents to identify research gaps and future directions.',
-    techStack: ['Python', 'FastAPI', 'LangChain','n8n','Google Gemini', 'React', 'Vanilla CSS'],
+    techStack: ['Python', 'FastAPI', 'LangChain', 'n8n', 'Google Gemini', 'React', 'Vanilla CSS'],
     techStackDetails: [
       { name: 'FastAPI', role: 'High-Performance Asynchronous Backend' },
       { name: 'LangChain', role: 'Multi-Step AI Agent Orchestration' },
@@ -74,7 +74,7 @@ export const projects = [
     shortDescription: 'A community-driven platform for exploring Moroccan cities and sharing tourist experiences.',
     fullDescription: 'MyTravelCircle is a collaborative web platform designed to promote Moroccan tourism. It allows users to discover hidden gems, share their travel stories, and contribute to a growing database of local attractions.',
     problemSolved: 'Finding authentic, user-contributed information about local Moroccan cities can be difficult. MyTravelCircle centralizes these experiences into a collaborative community hub.',
-    techStack: ['Django', 'Tailwind CSS', 'Python', 'PostgreSQL','Community Features'],
+    techStack: ['Django', 'Tailwind CSS', 'Python', 'PostgreSQL', 'Community Features'],
     techStackDetails: [
       { name: 'Django', role: 'Backend Architecture and Community Features' },
       { name: 'Tailwind CSS', role: 'Modern, Responsive Design' },
@@ -90,7 +90,7 @@ export const projects = [
       '/projects/travel-2.png',
       '/projects/travel-3.png',
       '/projects/travel-4.png',
-      
+
     ]
   },
   {
@@ -154,7 +154,7 @@ export const projects = [
       '/projects/peak-2.png',
     ]
   }
-  
+
   /*
   {
     id: 'sign-language',

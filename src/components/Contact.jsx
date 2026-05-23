@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Mail, User, MessageSquare, Send, ArrowRight } from 'lucide-react';
 import { FaLinkedin } from 'react-icons/fa';
+import { SiFiverr } from 'react-icons/si';
 
 const Contact = () => {
   return (
@@ -136,6 +137,9 @@ const Contact = () => {
               </a>
               <a href="https://www.linkedin.com/in/abirhachlafi/" target="_blank" rel="noopener noreferrer" className="social-circle" title="LinkedIn">
                 <FaLinkedin size={24} />
+              </a>
+              <a href="https://www.fiverr.com/abirhachlafi" target="_blank" rel="noopener noreferrer" className="social-circle" title="Hire me on Fiverr">
+                <SiFiverr size={26} />
               </a>
             </motion.div>
           </div>
