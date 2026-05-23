@@ -95,7 +95,7 @@ const Navbar = () => {
         ))}
         
         <a 
-          href={`${import.meta.env.BASE_URL}Abir Hachlafi.pdf`}
+          href={`${import.meta.env.BASE_URL}Abir Hachlafi CV.pdf`}
           download="Abir_Hachlafi_Resume.pdf"
           className="btn btn-primary"
           style={{ 
@@ -163,7 +163,7 @@ const Navbar = () => {
             ))}
             
             <a 
-              href={`${import.meta.env.BASE_URL}Abir Hachlafi.pdf`}
+              href={`${import.meta.env.BASE_URL}Abir Hachlafi CV.pdf`}
               download="Abir_Hachlafi_Resume.pdf"
               className="btn btn-primary"
               style={{ 
