@@ -10,6 +10,7 @@ import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import SpaceBackground from './components/SpaceBackground';
 import ProjectDetail from './pages/ProjectDetail';
+import CertificationsPage from './pages/CertificationsPage';
 import AIAssistant from './components/AIAssistant';
 
 import { useEffect } from 'react';
@@ -53,6 +54,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/project/:id" element={<ProjectDetail />} />
+          <Route path="/certifications" element={<CertificationsPage />} />
         </Routes>
       </main>
       <footer style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)', borderTop: '1px solid var(--border-color)', position: 'relative', zIndex: 10 }}>
