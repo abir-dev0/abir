@@ -103,6 +103,15 @@ const AIAssistant = () => {
     {
       priority: 4,
       category: 'projects',
+      id: 'data-lakehouse',
+      keywords: ['data', 'lakehouse', 'medallion', 'airflow', 'snowflake', 'xgboost', 'smart pricing', 'ecommerce', 'analytics'],
+      response: "Abir designed a dual-architecture Data Lakehouse Platform for e-commerce. It uses a Medallion Architecture and compares On-Premise (Docker, Airflow) with Cloud (Snowflake) solutions.",
+      contextResponse: "The project also features an XGBoost Machine Learning module for Smart Pricing and an interactive Streamlit dashboard for real-time KPI visualization.",
+      cta: { label: "View Lakehouse", action: "scroll", target: "projects" }
+    },
+    {
+      priority: 4,
+      category: 'projects',
       id: 'erp',
       keywords: ['erp', 'aram', 'inventory', 'production'],
       response: "Abir developed a full-stack ERP system called ARAM. It includes modules for order processing, real-time inventory tracking, production workflows, client management, and role-based access control.",
@@ -259,7 +268,7 @@ const AIAssistant = () => {
 
   const quickButtons = [
     { label: 'View Projects', query: 'Tell me about your projects' },
-    { label: 'ERP System', query: 'Tell me about the ERP project' },
+    { label: 'Data Lakehouse', query: 'Tell me about the Data Lakehouse project' },
     { label: 'AI Projects', query: 'What AI work has she done?' },
     { label: 'Contact Abir', query: 'How can I contact her?' }
   ];
