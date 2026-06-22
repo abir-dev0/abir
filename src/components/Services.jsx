@@ -1,43 +1,43 @@
 import { motion } from 'framer-motion';
-import { Globe, Building2, Layout, Bot, Users, Zap, Check, MessageSquare } from 'lucide-react';
+import { Globe, Building2, Layout, Bot, Database, Server, Check, MessageSquare } from 'lucide-react';
 
 const Services = () => {
   const services = [
     {
-      icon: <Building2 size={32} />,
-      title: 'Business Management Systems',
-      description: 'Custom web-based systems designed to help businesses manage operations, orders, clients, inventory, and workflows efficiently.',
-      features: ['ERP & dashboard systems', 'Role-based access management', 'Order & inventory tracking', 'Business analytics & reporting']
-    },
-    {
-      icon: <Globe size={32} />,
-      title: 'Full-Stack Web Applications',
-      description: 'Modern, scalable, and responsive web applications built with clean architecture and optimized performance.',
-      features: ['React & Node.js applications', 'Authentication & API integration', 'Responsive UI/UX', 'Secure backend systems']
-    },
-    {
-      icon: <Layout size={32} />,
-      title: 'SaaS & Dashboard Platforms',
-      description: 'Interactive platforms and dashboards designed for startups, businesses, and data-driven applications.',
-      features: ['Admin dashboards', 'Analytics & reporting tools', 'Real-time features', 'Multi-user systems']
+      icon: <Database size={32} />,
+      title: 'Data Engineering & Analytics',
+      description: 'Design and implementation of scalable Data Lakehouse platforms, ETL pipelines, and advanced data architectures for business intelligence.',
+      features: ['ETL & Pipeline Orchestration', 'Cloud Data Warehousing', 'Medallion Architecture', 'Big Data Processing']
     },
     {
       icon: <Bot size={32} />,
-      title: 'AI & Data-Driven Features',
-      description: 'Smart features that improve user experience and automate workflows using modern AI technologies.',
-      features: ['AI-powered assistants', 'Intelligent dashboards', 'Automation workflows', 'Data visualization & insights']
+      title: 'AI & Machine Learning',
+      description: 'Intelligent systems leveraging Multi-Agent architectures, LLMs, and Machine Learning models to automate workflows and extract insights.',
+      features: ['Multi-Agent Systems & LLMs', 'Predictive ML Models', 'Workflow Automation', 'NLP Document Processing']
     },
     {
-      icon: <Users size={32} />,
-      title: 'Community & Interactive Platforms',
-      description: 'Platforms focused on communication, engagement, and user interaction.',
-      features: ['Messaging systems', 'User-generated content', 'Community features', 'Real-time interactions']
+      icon: <Building2 size={32} />,
+      title: 'Full-Stack Enterprise Systems',
+      description: 'Comprehensive business solutions and ERPs built to centralize operations, manage logistics, and streamline complex internal workflows.',
+      features: ['ERP & Management Dashboards', 'Complex Database Design', 'Secure API Development', 'Business Analytics Reporting']
     },
     {
-      icon: <Zap size={32} />,
-      title: 'Performance & Optimization',
-      description: 'Improving speed, responsiveness, and overall user experience for modern web applications.',
-      features: ['Performance optimization', 'Clean scalable code', 'Mobile responsiveness', 'UI/UX improvements']
+      icon: <Layout size={32} />,
+      title: 'Modern Frontend Engineering',
+      description: 'High-performance, visually striking web interfaces with advanced animations, dynamic styling, and optimized mobile-first experiences.',
+      features: ['Interactive UI/UX Design', 'Advanced Animations', 'Lightning-fast Performance', 'Responsive Dashboards']
+    },
+    {
+      icon: <Globe size={32} />,
+      title: 'SaaS & Web Platforms',
+      description: 'Scalable cloud-based platforms, community hubs, and e-commerce solutions featuring real-time data and secure transactions.',
+      features: ['E-commerce Integration', 'User Community Features', 'Scalable Backend Architecture', 'Real-time Data Sync']
+    },
+    {
+      icon: <Server size={32} />,
+      title: 'API Development & Integration',
+      description: 'Building robust, secure RESTful APIs and seamlessly integrating third-party services, data sources, and automated workflows.',
+      features: ['RESTful API Architecture', 'Third-Party Integrations', 'Secure Authentication', 'Backend Orchestration']
     }
   ];
 
