@@ -138,9 +138,6 @@ const Contact = () => {
               <a href="https://www.linkedin.com/in/abirhachlafi/" target="_blank" rel="noopener noreferrer" className="social-circle" title="LinkedIn">
                 <FaLinkedin size={24} />
               </a>
-              <a href="https://www.fiverr.com/abirhachlafi" target="_blank" rel="noopener noreferrer" className="social-circle" title="Hire me on Fiverr">
-                <SiFiverr size={26} />
-              </a>
             </motion.div>
           </div>
         </div>

@@ -85,22 +85,6 @@ const Hero = () => {
               <a href="https://www.linkedin.com/in/abirhachlafi/" target="_blank" rel="noopener noreferrer" className="social-icon" title="LinkedIn">
                 <FaLinkedin size={22} />
               </a>
-              <a 
-                href="https://www.fiverr.com/abirhachlafi" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="btn btn-secondary" 
-                style={{ 
-                  padding: '0.5rem 1.5rem', 
-                  borderRadius: '1rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem'
-                }}
-              >
-                <SiFiverr size={20} />
-                <span>Hire me on Fiverr</span>
-              </a>
             </div>
           </motion.div>
         </motion.div>
