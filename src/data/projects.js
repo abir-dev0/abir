@@ -153,6 +153,29 @@ export const projects = [
       '/projects/peak-1.png',
       '/projects/peak-2.png',
     ]
+  },
+  {
+    id: 'data-lakehouse',
+    title: 'E-commerce Data Lakehouse Platform',
+    shortDescription: 'A dual-architecture Data Lakehouse implementation (On-Premise & Cloud) featuring a Medallion Architecture and ML-based Smart Pricing.',
+    fullDescription: 'This project focuses on the design and implementation of a modern Data Lakehouse platform for an e-commerce use case. It implements the Medallion Architecture (Bronze, Silver, Gold layers) and compares two complementary architectures: an On-Premise solution (Docker, MinIO, Apache Airflow) and a Cloud-based solution (Snowflake, Snowpark). Additionally, it integrates a Machine Learning module for Smart Pricing using XGBoost, and an interactive Streamlit dashboard for real-time sales and KPIs visualization.',
+    problemSolved: 'Organizations struggle with efficient storage, transformation, and analysis of large data volumes. This platform ensures progressive data processing while combining advanced analytics to support business decision-making and operational efficiency.',
+    techStack: ['Docker', 'MinIO', 'Apache Airflow', 'Snowflake', 'Snowpark', 'XGBoost', 'Streamlit', 'Pandas'],
+    techStackDetails: [
+      { name: 'Apache Airflow', role: 'Data Pipeline Orchestration' },
+      { name: 'Snowflake & Snowpark', role: 'Cloud Data Warehousing & Processing' },
+      { name: 'MinIO & Docker', role: 'On-Premise Storage & Containerization' },
+      { name: 'XGBoost', role: 'Machine Learning for Smart Pricing' },
+      { name: 'Streamlit', role: 'Interactive Dashboard & Analytics' }
+    ],
+    link: '#',
+    github: '#',
+    image: '/projects/streamlit1.png',
+    screenshots: [
+      '/projects/streamlit2.png',
+      '/projects/streamlit3.png',
+      '/projects/streamlit4.png',
+    ]
   }
 
   /*
