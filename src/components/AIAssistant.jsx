@@ -205,6 +205,7 @@ const AIAssistant = () => {
       category: 'projects',
       keywords: ['projects', 'work', 'built', 'developed', 'showcase', 'saas', 'platform', 'dashboard', 'frontend', 'backend', 'fullstack'],
       response: "Abir has built a diverse range of systems: Enterprise ERPs, Data Lakehouses, Multi-Agent AI workflows, and stunning Frontend portfolios. Is there a specific tech or project type you want to see?",
+      contextResponse: "For example, you can ask about her 'ERP System', 'Data Lakehouse', 'Lexiva AI', or 'Minibus Rental' app. Which one sounds interesting?",
       cta: { label: "Explore All Work", action: "scroll", target: "projects" }
     },
     {
@@ -243,8 +244,9 @@ const AIAssistant = () => {
     {
       priority: 1,
       category: 'about',
-      keywords: ['who', 'abir', 'specialized', 'specialization', 'profile', 'expert', 'focus', 'background', 'identity'],
-      response: "Abir is a software engineer who architects intelligent systems and data-driven platforms. She bridges the gap between complex backend infrastructure and elegant frontend designs."
+      keywords: ['who', 'abir', 'specialized', 'specialization', 'profile', 'expert', 'focus', 'background', 'identity', 'what she', 'what is she', 'what does', 'doing', 'job', 'profession'],
+      response: "Abir is a software engineer who architects intelligent systems and data-driven platforms. She bridges the gap between complex backend infrastructure and elegant frontend designs.",
+      contextResponse: "Her primary focus is on Full-Stack Development, Data Engineering (like Data Lakehouses), and integrating AI models into practical business workflows."
     }
   ];
 
@@ -312,8 +314,11 @@ const AIAssistant = () => {
 
       // Check follow ups
       if (!bestMatch && lastContext) {
-        const followUpKeywords = ['features', 'more', 'details', 'tell me more', 'show', 'explain', 'what else', 'and'];
-        const isFollowUp = followUpKeywords.some(k => lowerText.includes(k));
+        const followUpKeywords = ['features', 'more', 'details', 'tell me', 'show', 'explain', 'what else', 'yes', 'yeah', 'sure', 'ok', 'okay', 'yep', 'please'];
+        const isFollowUp = followUpKeywords.some(k => {
+          const regex = new RegExp(`\\b${k}\\b`, 'i');
+          return regex.test(lowerText);
+        });
 
         if (isFollowUp) {
           bestMatch = lastContext.contextResponse ?
