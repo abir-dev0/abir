@@ -99,6 +99,32 @@ const AIAssistant = () => {
   }, [messages, isTyping]);
 
   const knowledgeBase = [
+    // --- GREETINGS & CONVERSATION ---
+    {
+      priority: 5,
+      category: 'greetings',
+      keywords: ['hi', 'hello', 'hey', 'greetings', 'sup', 'morning', 'afternoon', 'evening'],
+      response: "Hello there! 👋 I'm Abir's AI assistant. I can tell you all about her work, from AI agents and Data Lakehouses to full-stack web apps. What are you interested in?"
+    },
+    {
+      priority: 5,
+      category: 'greetings',
+      keywords: ['how are you', 'how do you do', 'how is it going'],
+      response: "I'm doing great, thanks for asking! My circuits are fully optimized and ready to talk about Abir's amazing projects. Want to hear about her latest work?"
+    },
+    {
+      priority: 5,
+      category: 'greetings',
+      keywords: ['thanks', 'thank you', 'cool', 'awesome', 'nice', 'great', 'good job'],
+      response: "You're very welcome! Let me know if you want to explore more of Abir's portfolio or contact her directly."
+    },
+    {
+      priority: 5,
+      category: 'greetings',
+      keywords: ['bye', 'goodbye', 'see ya', 'cya'],
+      response: "Goodbye! Feel free to reach out to Abir directly using the contact form if you want to collaborate!"
+    },
+
     // --- SPECIFIC PROJECTS (High Priority) ---
     {
       priority: 4,
@@ -113,50 +139,95 @@ const AIAssistant = () => {
       priority: 4,
       category: 'projects',
       id: 'erp',
-      keywords: ['erp', 'aram', 'inventory', 'production'],
-      response: "Abir developed a full-stack ERP system called ARAM. It includes modules for order processing, real-time inventory tracking, production workflows, client management, and role-based access control.",
-      contextResponse: "The ERP system (ARAM) features role-based access, real-time analytics, automated stock management, and a unified logistics pipeline built with Django and SQL.",
-      cta: { label: "See Projects", action: "scroll", target: "projects" }
+      keywords: ['erp', 'aram', 'inventory', 'production', 'logistics', 'full-stack erp'],
+      response: "Abir developed a full-stack ERP system called ARAM. It centralizes operations with modules for order processing, real-time inventory tracking, and client management.",
+      contextResponse: "Built with Django and SQL, it features role-based access, data visualization with Chart.js, and automated Excel exports for business reporting.",
+      cta: { label: "See ERP Project", action: "scroll", target: "projects" }
     },
     {
       priority: 4,
       category: 'projects',
       id: 'lexiva',
-      keywords: ['lexiva', 'research', 'academic', 'literature'],
-      response: "Lexiva AI is an advanced research assistant that uses Google Gemini and LangChain to automate literature reviews, extract insights, and identify research gaps.",
-      contextResponse: "Lexiva AI specifically handles precision PDF extraction and uses multi-step AI agents to synthesize findings across hundreds of academic papers.",
+      keywords: ['lexiva', 'research', 'academic', 'literature', 'multi-agent', 'n8n'],
+      response: "Lexiva AI is an advanced research assistant she built using Google Gemini, LangChain, and n8n to automate literature reviews and extract insights across domains.",
+      contextResponse: "Lexiva uses precision PDF extraction (PyMuPDF) and orchestrates multi-step AI agents to synthesize findings and identify research gaps in hundreds of papers.",
       cta: { label: "View Lexiva AI", action: "scroll", target: "projects" }
+    },
+    {
+      priority: 4,
+      category: 'projects',
+      id: 'mvr',
+      keywords: ['minibus', 'rental', 'mvr', 'booking'],
+      response: "MVR is a full-stack Minibus Rental System Abir built with React, Node.js, Express, and MongoDB to streamline the vehicle reservation and payment process.",
+      contextResponse: "It automates scheduling, tracks real-time availability to prevent double-bookings, and features a clean Tailwind CSS interface.",
+      cta: { label: "View MVR", action: "scroll", target: "projects" }
+    },
+    {
+      priority: 4,
+      category: 'projects',
+      id: 'travelcircle',
+      keywords: ['travel', 'tourism', 'mytravelcircle', 'moroccan', 'morocco'],
+      response: "MyTravelCircle is a collaborative tourism platform for exploring Moroccan cities. It's built with Django and PostgreSQL to allow users to share travel stories.",
+      contextResponse: "It serves as a community hub with user reviews, ratings, and recommendations for authentic local experiences.",
+      cta: { label: "View TravelCircle", action: "scroll", target: "projects" }
+    },
+    {
+      priority: 4,
+      category: 'projects',
+      id: 'skycast',
+      keywords: ['skycast', 'weather', 'real-time weather', 'weather app'],
+      response: "SkyCast is a lightning-fast, mobile-first weather application built with React and Tailwind CSS. It integrates the OpenWeather API for global meteorological data.",
+      contextResponse: "The app features dynamic background updates based on current weather conditions and optimized state management for a seamless experience.",
+      cta: { label: "View SkyCast", action: "scroll", target: "projects" }
+    },
+    {
+      priority: 4,
+      category: 'projects',
+      id: 'portfolio',
+      keywords: ['portfolio', 'cosmic', 'fusion', '3d', 'animations', 'framer'],
+      response: "You're looking at it! Cosmic Fusion is Abir's personal portfolio built with React and Framer Motion, featuring glassmorphism UI and advanced micro-animations.",
+      contextResponse: "The portfolio emphasizes visual excellence and modern web engineering, avoiding generic templates to create a stunning first impression.",
+      cta: { label: "Explore Portfolio", action: "scroll", target: "projects" }
+    },
+    {
+      priority: 4,
+      category: 'projects',
+      id: 'peak',
+      keywords: ['peak', 'library', 'books', 'ecommerce', 'e-commerce', 'laravel'],
+      response: "Peak Online Library is an e-commerce platform for book enthusiasts, featuring a Laravel RESTful API backend and a React.js frontend.",
+      contextResponse: "It handles user authentication, inventory management with MySQL, and provides a 24/7 digital storefront for secure transactions.",
+      cta: { label: "View Peak Library", action: "scroll", target: "projects" }
     },
 
     // --- GENERAL CATEGORIES ---
     {
       priority: 3,
       category: 'projects',
-      keywords: ['projects', 'work', 'portfolio', 'built', 'developed', 'showcase', 'saas', 'platform', 'dashboard', 'rental', 'booking'],
-      response: "Abir has built several high-impact systems: ARAM (ERP), Lexiva AI (Research Tool), MVR (Rental System), and MyTravelCircle (Tourism). Would you like specific details on any of these?",
-      cta: { label: "Explore Work", action: "scroll", target: "projects" }
+      keywords: ['projects', 'work', 'built', 'developed', 'showcase', 'saas', 'platform', 'dashboard', 'frontend', 'backend', 'fullstack'],
+      response: "Abir has built a diverse range of systems: Enterprise ERPs, Data Lakehouses, Multi-Agent AI workflows, and stunning Frontend portfolios. Is there a specific tech or project type you want to see?",
+      cta: { label: "Explore All Work", action: "scroll", target: "projects" }
     },
     {
       priority: 3,
       category: 'skills',
-      keywords: ['skills', 'tech', 'stack', 'languages', 'technologies', 'code', 'coding', 'react', 'node', 'django', 'python', 'laravel', 'sql'],
-      response: "Abir is proficient in React.js, Node.js, Django, Python, Laravel, and SQL. She focuses on building scalable applications with clean code and modern architecture.",
+      keywords: ['skills', 'tech', 'stack', 'languages', 'technologies', 'code', 'coding', 'react', 'node', 'django', 'python', 'laravel', 'sql', 'database'],
+      response: "Abir's technical stack is extensive! She's proficient in Python, JavaScript (React, Node.js), Django, Laravel, and data engineering tools like Snowflake and Airflow.",
       cta: { label: "View Technical Stack", action: "scroll", target: "skills" }
     },
     {
       priority: 3,
       category: 'ai',
-      keywords: ['ai', 'artificial intelligence', 'machine learning', 'gemini', 'langchain'],
-      response: "Abir specializes in AI integrations. She uses LLMs like Google Gemini and frameworks like LangChain to build intelligent workflows, chatbots, and data visualization tools.",
+      keywords: ['ai', 'artificial intelligence', 'machine learning', 'gemini', 'langchain', 'llm', 'llms', 'agents'],
+      response: "Abir specializes in intelligent automation. She uses LLMs like Google Gemini, frameworks like LangChain, and n8n to build multi-agent workflows and predictive models (like XGBoost).",
       cta: { label: "See AI Services", action: "scroll", target: "services" }
     },
     {
       priority: 3,
       category: 'contact',
-      keywords: ['contact', 'hire', 'email', 'reach', 'message', 'call', 'linkedin', 'github'],
-      response: "You can reach Abir via the contact form on this site, or follow her work on LinkedIn and GitHub. I can also help you scroll directly to her contact info!",
+      keywords: ['contact', 'hire', 'email', 'reach', 'message', 'call', 'linkedin', 'github', 'freelance'],
+      response: "You can reach Abir directly through the contact form, or connect with her on LinkedIn and GitHub. Let me help you scroll there!",
       ctas: [
-        { label: "Contact Now", action: "scroll", target: "contact", icon: <Mail size={14} /> },
+        { label: "Contact Form", action: "scroll", target: "contact", icon: <Mail size={14} /> },
         { label: "LinkedIn", action: "link", url: "https://www.linkedin.com/in/abirhachlafi/", icon: <FaLinkedin size={14} /> }
       ]
     },
@@ -165,15 +236,15 @@ const AIAssistant = () => {
     {
       priority: 2,
       category: 'education',
-      keywords: ['education', 'degree', 'study', 'university', 'academic', 'student', 'emsi'],
-      response: "Abir is a software engineering student at EMSI, focusing on full-stack development and AI systems. She maintains a high standard of technical excellence in her academic work.",
+      keywords: ['education', 'degree', 'study', 'university', 'academic', 'student', 'emsi', 'school'],
+      response: "Abir is a software engineering student at EMSI, focusing heavily on full-stack development, scalable data architectures, and AI systems.",
       cta: { label: "View Education", action: "scroll", target: "experience" }
     },
     {
       priority: 1,
       category: 'about',
       keywords: ['who', 'abir', 'specialized', 'specialization', 'profile', 'expert', 'focus', 'background', 'identity'],
-      response: "Abir is a full-stack developer specializing in business systems, SaaS applications, and AI integrations. She turns complex ideas into scalable digital realities."
+      response: "Abir is a software engineer who architects intelligent systems and data-driven platforms. She bridges the gap between complex backend infrastructure and elegant frontend designs."
     }
   ];
 
@@ -208,15 +279,12 @@ const AIAssistant = () => {
     setInputValue('');
     setIsTyping(true);
 
-    // Typing Realism: Random delay
-    const typingDelay = Math.floor(Math.random() * (2000 - 800 + 1)) + 800;
+    const typingDelay = Math.floor(Math.random() * (1500 - 600 + 1)) + 600;
 
     setTimeout(() => {
       const lowerText = userText.toLowerCase();
       let bestMatch = null;
 
-      // 1. First, check if the current query contains a specific keyword from the KB
-      // We sort by priority first, then keyword length to match the most specific term first
       const sortedKB = [...knowledgeBase].sort((a, b) => {
         if (b.priority !== a.priority) return b.priority - a.priority;
         const aMax = Math.max(...a.keywords.map(k => k.length));
@@ -225,10 +293,14 @@ const AIAssistant = () => {
       });
 
       for (const item of sortedKB) {
-        // Use word boundaries for more accurate matching
+        // Relaxed matching logic: substring for multi-word, boundary for single word
         const found = item.keywords.some(keyword => {
-          const regex = new RegExp(`\\b${keyword}\\b`, 'i');
-          return regex.test(lowerText);
+          if (keyword.includes(' ')) {
+            return lowerText.includes(keyword);
+          } else {
+            const regex = new RegExp(`\\b${keyword}\\b`, 'i');
+            return regex.test(lowerText);
+          }
         });
 
         if (found) {
@@ -238,9 +310,9 @@ const AIAssistant = () => {
         }
       }
 
-      // 2. If no direct match, check if it's a follow-up query based on context
+      // Check follow ups
       if (!bestMatch && lastContext) {
-        const followUpKeywords = ['features', 'more', 'details', 'tell me more', 'show', 'explain', 'what else'];
+        const followUpKeywords = ['features', 'more', 'details', 'tell me more', 'show', 'explain', 'what else', 'and'];
         const isFollowUp = followUpKeywords.some(k => lowerText.includes(k));
 
         if (isFollowUp) {
@@ -258,7 +330,12 @@ const AIAssistant = () => {
         if (bestMatch.cta) responseCtas = [bestMatch.cta];
         if (bestMatch.ctas) responseCtas = bestMatch.ctas;
       } else {
-        responseText = "I can help you explore Abir’s projects, AI work, SaaS platforms, or technical skills. Try asking about her ERP system or AI projects!";
+        const fallbacks = [
+          "I'm not entirely sure about that! But I can tell you about Abir's Data Lakehouse, her AI integration work, or her Full-Stack web apps.",
+          "Hmm, I didn't catch that. Try asking me about 'projects', 'skills', or 'how to contact Abir'!",
+          "I'm still learning! While I process that, would you like to see her latest AI Research Assistant, Lexiva?"
+        ];
+        responseText = fallbacks[Math.floor(Math.random() * fallbacks.length)];
       }
 
       setMessages(prev => [...prev, { type: 'ai', text: responseText, ctas: responseCtas }]);
