@@ -11,6 +11,7 @@ import Contact from './components/Contact';
 import SpaceBackground from './components/SpaceBackground';
 import ProjectDetail from './pages/ProjectDetail';
 import CertificationsPage from './pages/CertificationsPage';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import AIAssistant from './components/AIAssistant';
 
 import { useEffect } from 'react';
@@ -55,6 +56,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/project/:id" element={<ProjectDetail />} />
           <Route path="/certifications" element={<CertificationsPage />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Routes>
       </main>
       <footer style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)', borderTop: '1px solid var(--border-color)', position: 'relative', zIndex: 10 }}>
