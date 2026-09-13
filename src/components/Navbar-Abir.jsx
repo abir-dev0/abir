@@ -62,7 +62,7 @@ const Navbar = () => {
     >
       <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
         <img
-          src={`${import.meta.env.BASE_URL}logoo.png`}
+          src={`${import.meta.env.BASE_URL}logo.png`}
           alt="Abir Hachlafi Logo"
           style={{ height: '55px', width: 'auto', objectFit: 'contain' }}
           onError={(e) => {
@@ -96,7 +96,7 @@ const Navbar = () => {
         ))}
         
         <a 
-          href={`${import.meta.env.BASE_URL}Resume.pdf`}
+          href={`${import.meta.env.BASE_URL}Abir Hachlafi CV.pdf`}
           download="Abir_Hachlafi_Resume.pdf"
           className="btn btn-primary"
           style={{ 
@@ -164,7 +164,7 @@ const Navbar = () => {
             ))}
             
             <a 
-              href={`${import.meta.env.BASE_URL}Resume.pdf`}
+              href={`${import.meta.env.BASE_URL}Abir Hachlafi CV.pdf`}
               download="Abir_Hachlafi_Resume.pdf"
               className="btn btn-primary"
               style={{ 
