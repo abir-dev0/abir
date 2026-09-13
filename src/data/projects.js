@@ -117,23 +117,6 @@ export const projects = [
     ]
   },
   {
-    id: 'weather-app',
-    title: 'SkyCast - Real-Time Weather App',
-    shortDescription: 'A responsive weather dashboard featuring real-time data integration and a sleek UI.',
-    fullDescription: 'SkyCast is a modern weather application that provides instant meteorological data for cities worldwide. Built with React.js and Tailwind CSS, it offers a high-performance, mobile-first experience with dynamic background updates based on current conditions.',
-    problemSolved: 'Many weather apps are cluttered or slow. SkyCast provides a minimalist, lightning-fast interface that delivers essential weather information through seamless API integration and optimized state management.',
-    techStack: ['React.js', 'Tailwind CSS', 'Weather API'],
-    techStackDetails: [
-      { name: 'React.js', role: 'Component Architecture and State Management' },
-      { name: 'Tailwind CSS', role: 'Responsive, Utility-First Styling' },
-      { name: 'OpenWeather API', role: 'Real-Time Global Weather Data' }
-    ],
-    link: '#',
-    github: '#',
-    image: '/projects/weather.png',
-    screenshots: []
-  },
-  {
     id: 'erp',
     title: 'Full-Stack ERP System',
     shortDescription: 'A comprehensive ERP solution for managing business operations, from logistics to order processing.',
