@@ -23,6 +23,7 @@ const Navbar = () => {
     { name: 'Skills', href: '/#skills' },
     { name: 'Education', href: '/#experience' },
     { name: 'Projects', href: '/#projects' },
+    { name: 'Certifications', href: '/#certifications' },
     { name: 'Contact', href: '/#contact' },
   ];
 
