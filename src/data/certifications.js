@@ -2,7 +2,7 @@ export const certifications = [
   {
     name: 'Oracle Cloud Infrastructure Certified AI Foundations Associate - Oracle University',
     file: `${import.meta.env.BASE_URL}certs/cert11.pdf`,
-    image: `${import.meta.env.BASE_URL}certs/cert11.jpg`
+    image: `${import.meta.env.BASE_URL}certs/cert11.png`
   },
   {
     name: 'The Unix Workbench – Johns Hopkins University (Linux)',
