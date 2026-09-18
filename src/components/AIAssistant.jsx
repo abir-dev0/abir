@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  X, Send, Sparkles, ChevronRight, FileText, ArrowRight 
+  X, Send, ChevronRight, FileText, ArrowRight 
 } from 'lucide-react';
 
 const RobotIcon = ({ size = 32, isTyping = false }) => {
@@ -291,7 +291,6 @@ const AIAssistant = () => {
               }}
               onClick={() => setIsOpen(true)}
             >
-              <Sparkles size={14} color="#12c2e9" />
               <span style={{ fontSize: '0.85rem', color: '#fff', fontWeight: '500' }}>
                 Ask Abir's AI Agent
               </span>
@@ -374,12 +373,9 @@ const AIAssistant = () => {
                       color: assistantMode === 'rag' ? '#10b981' : '#f59e0b',
                       fontWeight: 600
                     }}>
-                      {assistantMode === 'rag' ? '✨ AI Online' : '⚡ Offline'}
+                      {assistantMode === 'rag' ? 'Online' : 'Offline'}
                     </span>
                   </div>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                    Grounded in verified portfolio & resume
-                  </span>
                 </div>
               </div>
 
