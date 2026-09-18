@@ -25,22 +25,15 @@ const About = () => {
               marginBottom: '2rem',
               fontWeight: '600'
             }}>
-              Turning Ideas into Digital Reality
+              I build at the intersection of Artificial Intelligence, Data, and Software Engineering
             </h3>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'center' }}>
-              <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', lineHeight: '1.8', maxWidth: '750px' }}>
-                I’m a full-stack web developer passionate about building modern, scalable applications that combine clean design with strong functionality and user experience.              </p>
-
               <div style={{ width: '50px', height: '2px', background: 'var(--accent-gradient)', opacity: 0.3 }} />
 
               <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', lineHeight: '1.8', maxWidth: '750px' }}>
-                Alongside web development, I am actively learning Artificial Intelligence and exploring how to integrate AI models into real-world applications. I enjoy working at the intersection of software engineering and intelligent systems.
-              </p>
-              <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', lineHeight: '1.8', maxWidth: '750px' }}>
-                I specialize in building full-stack applications and AI-powered systems. My work involves developing backend systems, designing APIs, and creating responsive frontend interfaces using modern web technologies.              </p>
-
-              <div style={{
+As an AI & Data Engineering student, I enjoy turning complex ideas into useful applications, from machine learning models and LLM-powered solutions to full-stack products. I’m driven by curiosity, continuous learning, and the challenge of building things that actually make an impact.              </p>
+               <div style={{
                 marginTop: '1rem',
                 padding: '1.5rem 2rem',
                 background: 'rgba(255, 255, 255, 0.03)',
