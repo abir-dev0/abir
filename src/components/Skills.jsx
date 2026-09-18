@@ -1,14 +1,23 @@
 import { motion } from 'framer-motion';
 import {
   SiReact, SiRedux, SiJavascript, SiNodedotjs, SiExpress, SiLaravel, SiPython, SiDjango, SiCplusplus,
-  SiMongodb, SiMysql, SiApachecassandra, SiRedis, SiNeo4J, SiTypescript, SiTailwindcss, SiPostgresql, SiFramer
+  SiMongodb, SiMysql, SiApachecassandra, SiRedis, SiNeo4J, SiTypescript, SiTailwindcss, SiPostgresql, SiFramer,
+  SiScikitlearn, SiPandas, SiNumpy, SiN8N
 } from 'react-icons/si';
 import {
-  FaGithub, FaDocker, FaCode, FaLinux, FaCss3Alt, FaHtml5, FaGitAlt, FaDatabase, FaMobileAlt
+  FaGithub, FaDocker, FaCode, FaLinux, FaCss3Alt, FaHtml5, FaGitAlt, FaDatabase, FaMobileAlt,
+  FaBrain, FaLanguage, FaRobot, FaLink
 } from 'react-icons/fa';
 
 const Skills = () => {
   const row1 = [
+    { name: 'Machine Learning', icon: <FaBrain /> },
+    { name: 'Deep Learning', icon: <FaBrain /> },
+    { name: 'NLP', icon: <FaLanguage /> },
+    { name: 'LLMs', icon: <FaRobot /> },
+    { name: 'LangChain', icon: <FaLink /> },
+    { name: 'Python', icon: <SiPython /> },
+    { name: 'Django', icon: <SiDjango /> },
     { name: 'React.js', icon: <SiReact /> },
     { name: 'JavaScript', icon: <SiJavascript /> },
     { name: 'TypeScript', icon: <SiTypescript /> },
@@ -19,12 +28,15 @@ const Skills = () => {
     { name: 'Responsive Design', icon: <FaMobileAlt /> },
     { name: 'HTML5', icon: <FaHtml5 /> },
     { name: 'CSS3', icon: <FaCss3Alt /> },
-    { name: 'Vanilla CSS', icon: <FaCss3Alt /> },
-    { name: 'Python', icon: <SiPython /> },
-    { name: 'Django', icon: <SiDjango /> }
+    { name: 'Vanilla CSS', icon: <FaCss3Alt /> }
   ];
 
   const row2 = [
+    { name: 'Scikit-learn', icon: <SiScikitlearn /> },
+    { name: 'XGBoost', icon: <SiScikitlearn /> },
+    { name: 'Pandas', icon: <SiPandas /> },
+    { name: 'NumPy', icon: <SiNumpy /> },
+    { name: 'n8n', icon: <SiN8N /> },
     { name: 'MongoDB', icon: <SiMongodb /> },
     { name: 'PostgreSQL', icon: <SiPostgresql /> },
     { name: 'MySQL', icon: <SiMysql /> },
@@ -61,12 +73,12 @@ const Skills = () => {
       {/* Row 1 - Left to Right */}
       <div style={{ marginBottom: '2rem', width: '100%' }}>
         <motion.div
-          animate={{ x: [0, -2000] }}
+          animate={{ x: ['0%', '-50%'] }}
           transition={{
             x: {
               repeat: Infinity,
               repeatType: "loop",
-              duration: 30,
+              duration: 35,
               ease: "linear",
             },
           }}
@@ -81,7 +93,7 @@ const Skills = () => {
       {/* Row 2 - Right to Left */}
       <div style={{ width: '100%' }}>
         <motion.div
-          animate={{ x: [-2000, 0] }}
+          animate={{ x: ['-50%', '0%'] }}
           transition={{
             x: {
               repeat: Infinity,
