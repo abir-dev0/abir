@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, User, Bot, Sparkles, ChevronRight, ExternalLink, Mail } from 'lucide-react';
-import { FaLinkedin } from 'react-icons/fa6';
+import { 
+  MessageSquare, X, Send, Sparkles, ChevronRight, FileText, 
+  Briefcase, CheckCircle2, RefreshCw, ArrowRight 
+} from 'lucide-react';
 
 const RobotIcon = ({ size = 32, isTyping = false }) => {
   return (
-    <div style={{ position: 'relative', width: size, height: size, display: 'flex', alignItems: 'center', justifyItems: 'center' }}>
+    <div style={{ position: 'relative', width: size, height: size, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         {/* Antenna */}
         <motion.circle
@@ -65,7 +67,7 @@ const RobotIcon = ({ size = 32, isTyping = false }) => {
         style={{
           position: 'absolute',
           inset: -5,
-          background: 'radial-gradient(circle, rgba(18, 194, 233, 0.2) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(18, 194, 233, 0.25) 0%, transparent 70%)',
           zIndex: -1,
           borderRadius: '50%'
         }}
@@ -76,179 +78,94 @@ const RobotIcon = ({ size = 32, isTyping = false }) => {
   );
 };
 
+// Formatted Markdown-like Renderer for LLM outputs
+const FormattedMessage = ({ text }) => {
+  if (!text) return null;
+  const lines = text.split('\n');
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+      {lines.map((line, idx) => {
+        const trimmed = line.trim();
+        if (!trimmed) return <div key={idx} style={{ height: '0.2rem' }} />;
+
+        if (trimmed.startsWith('### ')) {
+          return (
+            <h5 key={idx} style={{
+              margin: '0.5rem 0 0.2rem 0',
+              color: '#12c2e9',
+              fontSize: '0.92rem',
+              fontWeight: 600,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.35rem'
+            }}>
+              {trimmed.replace('### ', '')}
+            </h5>
+          );
+        }
+
+        if (trimmed.startsWith('• ') || trimmed.startsWith('- ') || trimmed.startsWith('✓ ')) {
+          const isCheck = trimmed.startsWith('✓ ');
+          const content = trimmed.substring(2);
+          const parts = content.split(/(\*\*.*?\*\*)/g);
+          return (
+            <div key={idx} style={{ display: 'flex', gap: '0.4rem', alignItems: 'flex-start', paddingLeft: '0.2rem' }}>
+              <span style={{ color: isCheck ? '#10b981' : 'var(--accent-color)', fontWeight: 'bold' }}>
+                {isCheck ? '✓' : '•'}
+              </span>
+              <span style={{ fontSize: '0.88rem', lineHeight: '1.5' }}>
+                {parts.map((part, pIdx) => {
+                  if (part.startsWith('**') && part.endsWith('**')) {
+                    return <strong key={pIdx} style={{ color: '#fff' }}>{part.slice(2, -2)}</strong>;
+                  }
+                  return part;
+                })}
+              </span>
+            </div>
+          );
+        }
+
+        const parts = line.split(/(\*\*.*?\*\*)/g);
+        return (
+          <p key={idx} style={{ margin: 0, fontSize: '0.88rem', lineHeight: '1.55' }}>
+            {parts.map((part, pIdx) => {
+              if (part.startsWith('**') && part.endsWith('**')) {
+                return <strong key={pIdx} style={{ color: '#fff' }}>{part.slice(2, -2)}</strong>;
+              }
+              return part;
+            })}
+          </p>
+        );
+      })}
+    </div>
+  );
+};
+
 const AIAssistant = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeView, setActiveView] = useState('chat'); // 'chat' | 'job_match'
+  const [jobDescriptionInput, setJobDescriptionInput] = useState('');
+  const [assistantMode, setAssistantMode] = useState('rag'); // 'rag' | 'offline'
+  
   const [messages, setMessages] = useState([
     {
       type: 'ai',
-      text: "Hi! I’m Abir’s AI assistant 👋 I can tell you about her projects, skills, services, and education.",
+      text: "Hi! I'm Abir's **AI Portfolio Assistant** 👋\n\nI can tell you all about her machine learning models, Data Lakehouse platform, research projects, or analyze a job description against her skills.",
       isInitial: true
     }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const [lastContext, setLastContext] = useState(null);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, isTyping]);
-
-  const knowledgeBase = [
-    // --- GREETINGS & CONVERSATION ---
-    {
-      priority: 5,
-      category: 'greetings',
-      keywords: ['hi', 'hello', 'hey', 'greetings', 'sup', 'morning', 'afternoon', 'evening'],
-      response: "Hello there! 👋 I'm Abir's AI assistant. I can tell you all about her work, from AI agents and Data Lakehouses to full-stack web apps. What are you interested in?"
-    },
-    {
-      priority: 5,
-      category: 'greetings',
-      keywords: ['how are you', 'how do you do', 'how is it going'],
-      response: "I'm doing great, thanks for asking! My circuits are fully optimized and ready to talk about Abir's amazing projects. Want to hear about her latest work?"
-    },
-    {
-      priority: 5,
-      category: 'greetings',
-      keywords: ['thanks', 'thank you', 'cool', 'awesome', 'nice', 'great', 'good job'],
-      response: "You're very welcome! Let me know if you want to explore more of Abir's portfolio or contact her directly."
-    },
-    {
-      priority: 5,
-      category: 'greetings',
-      keywords: ['bye', 'goodbye', 'see ya', 'cya'],
-      response: "Goodbye! Feel free to reach out to Abir directly using the contact form if you want to collaborate!"
-    },
-
-    // --- SPECIFIC PROJECTS (High Priority) ---
-    {
-      priority: 4,
-      category: 'projects',
-      id: 'data-lakehouse',
-      keywords: ['data', 'lakehouse', 'medallion', 'airflow', 'snowflake', 'xgboost', 'smart pricing', 'ecommerce', 'analytics'],
-      response: "Abir designed a dual-architecture Data Lakehouse Platform for e-commerce. It uses a Medallion Architecture and compares On-Premise (Docker, Airflow) with Cloud (Snowflake) solutions.",
-      contextResponse: "The project also features an XGBoost Machine Learning module for Smart Pricing and an interactive Streamlit dashboard for real-time KPI visualization.",
-      cta: { label: "View Lakehouse", action: "scroll", target: "projects" }
-    },
-    {
-      priority: 4,
-      category: 'projects',
-      id: 'erp',
-      keywords: ['erp', 'aram', 'inventory', 'production', 'logistics', 'full-stack erp'],
-      response: "Abir developed a full-stack ERP system called ARAM. It centralizes operations with modules for order processing, real-time inventory tracking, and client management.",
-      contextResponse: "Built with Django and SQL, it features role-based access, data visualization with Chart.js, and automated Excel exports for business reporting.",
-      cta: { label: "See ERP Project", action: "scroll", target: "projects" }
-    },
-    {
-      priority: 4,
-      category: 'projects',
-      id: 'lexiva',
-      keywords: ['lexiva', 'research', 'academic', 'literature', 'multi-agent', 'n8n'],
-      response: "Lexiva AI is an advanced research assistant she built using Google Gemini, LangChain, and n8n to automate literature reviews and extract insights across domains.",
-      contextResponse: "Lexiva uses precision PDF extraction (PyMuPDF) and orchestrates multi-step AI agents to synthesize findings and identify research gaps in hundreds of papers.",
-      cta: { label: "View Lexiva AI", action: "scroll", target: "projects" }
-    },
-    {
-      priority: 4,
-      category: 'projects',
-      id: 'mvr',
-      keywords: ['minibus', 'rental', 'mvr', 'booking'],
-      response: "MVR is a full-stack Minibus Rental System Abir built with React, Node.js, Express, and MongoDB to streamline the vehicle reservation and payment process.",
-      contextResponse: "It automates scheduling, tracks real-time availability to prevent double-bookings, and features a clean Tailwind CSS interface.",
-      cta: { label: "View MVR", action: "scroll", target: "projects" }
-    },
-    {
-      priority: 4,
-      category: 'projects',
-      id: 'travelcircle',
-      keywords: ['travel', 'tourism', 'mytravelcircle', 'moroccan', 'morocco'],
-      response: "MyTravelCircle is a collaborative tourism platform for exploring Moroccan cities. It's built with Django and PostgreSQL to allow users to share travel stories.",
-      contextResponse: "It serves as a community hub with user reviews, ratings, and recommendations for authentic local experiences.",
-      cta: { label: "View TravelCircle", action: "scroll", target: "projects" }
-    },
-    {
-      priority: 4,
-      category: 'projects',
-      id: 'skycast',
-      keywords: ['skycast', 'weather', 'real-time weather', 'weather app'],
-      response: "SkyCast is a lightning-fast, mobile-first weather application built with React and Tailwind CSS. It integrates the OpenWeather API for global meteorological data.",
-      contextResponse: "The app features dynamic background updates based on current weather conditions and optimized state management for a seamless experience.",
-      cta: { label: "View SkyCast", action: "scroll", target: "projects" }
-    },
-    {
-      priority: 4,
-      category: 'projects',
-      id: 'portfolio',
-      keywords: ['portfolio', 'cosmic', 'fusion', '3d', 'animations', 'framer'],
-      response: "You're looking at it! Cosmic Fusion is Abir's personal portfolio built with React and Framer Motion, featuring glassmorphism UI and advanced micro-animations.",
-      contextResponse: "The portfolio emphasizes visual excellence and modern web engineering, avoiding generic templates to create a stunning first impression.",
-      cta: { label: "Explore Portfolio", action: "scroll", target: "projects" }
-    },
-    {
-      priority: 4,
-      category: 'projects',
-      id: 'peak',
-      keywords: ['peak', 'library', 'books', 'ecommerce', 'e-commerce', 'laravel'],
-      response: "Peak Online Library is an e-commerce platform for book enthusiasts, featuring a Laravel RESTful API backend and a React.js frontend.",
-      contextResponse: "It handles user authentication, inventory management with MySQL, and provides a 24/7 digital storefront for secure transactions.",
-      cta: { label: "View Peak Library", action: "scroll", target: "projects" }
-    },
-
-    // --- GENERAL CATEGORIES ---
-    {
-      priority: 3,
-      category: 'projects',
-      keywords: ['projects', 'work', 'built', 'developed', 'showcase', 'saas', 'platform', 'dashboard', 'frontend', 'backend', 'fullstack'],
-      response: "Abir has built a diverse range of systems: Enterprise ERPs, Data Lakehouses, Multi-Agent AI workflows, and stunning Frontend portfolios. Is there a specific tech or project type you want to see?",
-      contextResponse: "For example, you can ask about her 'ERP System', 'Data Lakehouse', 'Lexiva AI', or 'Minibus Rental' app. Which one sounds interesting?",
-      cta: { label: "Explore All Work", action: "scroll", target: "projects" }
-    },
-    {
-      priority: 3,
-      category: 'skills',
-      keywords: ['skills', 'tech', 'stack', 'languages', 'technologies', 'code', 'coding', 'react', 'node', 'django', 'python', 'laravel', 'sql', 'database'],
-      response: "Abir's technical stack is extensive! She's proficient in Python, JavaScript (React, Node.js), Django, Laravel, and data engineering tools like Snowflake and Airflow.",
-      cta: { label: "View Technical Stack", action: "scroll", target: "skills" }
-    },
-    {
-      priority: 3,
-      category: 'ai',
-      keywords: ['ai', 'artificial intelligence', 'machine learning', 'gemini', 'langchain', 'llm', 'llms', 'agents'],
-      response: "Abir specializes in intelligent automation. She uses LLMs like Google Gemini, frameworks like LangChain, and n8n to build multi-agent workflows and predictive models (like XGBoost).",
-      cta: { label: "See AI Services", action: "scroll", target: "services" }
-    },
-    {
-      priority: 3,
-      category: 'contact',
-      keywords: ['contact', 'hire', 'email', 'reach', 'message', 'call', 'linkedin', 'github', 'freelance'],
-      response: "You can reach Abir directly through the contact form, or connect with her on LinkedIn and GitHub. Let me help you scroll there!",
-      ctas: [
-        { label: "Contact Form", action: "scroll", target: "contact", icon: <Mail size={14} /> },
-        { label: "LinkedIn", action: "link", url: "https://www.linkedin.com/in/abirhachlafi/", icon: <FaLinkedin size={14} /> }
-      ]
-    },
-
-    // --- EDUCATION & ABOUT ---
-    {
-      priority: 2,
-      category: 'education',
-      keywords: ['education', 'degree', 'study', 'university', 'academic', 'student', 'emsi', 'school'],
-      response: "Abir is a software engineering student at EMSI, focusing heavily on full-stack development, scalable data architectures, and AI systems.",
-      cta: { label: "View Education", action: "scroll", target: "experience" }
-    },
-    {
-      priority: 1,
-      category: 'about',
-      keywords: ['who', 'abir', 'specialized', 'specialization', 'profile', 'expert', 'focus', 'background', 'identity', 'what she', 'what is she', 'what does', 'doing', 'job', 'profession'],
-      response: "Abir is a software engineer who architects intelligent systems and data-driven platforms. She bridges the gap between complex backend infrastructure and elegant frontend designs.",
-      contextResponse: "Her primary focus is on Full-Stack Development, Data Engineering (like Data Lakehouses), and integrating AI models into practical business workflows."
-    }
-  ];
+  }, [messages, isTyping, activeView]);
 
   useEffect(() => {
     const handleOpen = () => setIsOpen(true);
@@ -273,91 +190,89 @@ const AIAssistant = () => {
     }
   };
 
-  const handleSend = (text) => {
+  const handleSend = async (text, customMode = 'chat') => {
     const userText = text || inputValue;
     if (!userText.trim()) return;
 
-    setMessages(prev => [...prev, { type: 'user', text: userText }]);
+    // Switch back to chat view if triggered from job matcher
+    if (activeView === 'job_match') {
+      setActiveView('chat');
+    }
+
+    setMessages(prev => [...prev, { 
+      type: 'user', 
+      text: customMode === 'job_match' ? `📋 Analyzing Job Description:\n\n${userText.slice(0, 160)}...` : userText 
+    }]);
     setInputValue('');
+    setJobDescriptionInput('');
     setIsTyping(true);
 
-    const typingDelay = Math.floor(Math.random() * (1500 - 600 + 1)) + 600;
+    try {
+      const history = messages
+        .filter(m => !m.isInitial)
+        .slice(-6)
+        .map(m => ({
+          role: m.type === 'ai' ? 'model' : 'user',
+          text: m.text
+        }));
 
-    setTimeout(() => {
-      const lowerText = userText.toLowerCase();
-      let bestMatch = null;
-
-      const sortedKB = [...knowledgeBase].sort((a, b) => {
-        if (b.priority !== a.priority) return b.priority - a.priority;
-        const aMax = Math.max(...a.keywords.map(k => k.length));
-        const bMax = Math.max(...b.keywords.map(k => k.length));
-        return bMax - aMax;
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: userText,
+          mode: customMode,
+          history
+        })
       });
 
-      for (const item of sortedKB) {
-        // Relaxed matching logic: substring for multi-word, boundary for single word
-        const found = item.keywords.some(keyword => {
-          if (keyword.includes(' ')) {
-            return lowerText.includes(keyword);
-          } else {
-            const regex = new RegExp(`\\b${keyword}\\b`, 'i');
-            return regex.test(lowerText);
-          }
-        });
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
 
-        if (found) {
-          bestMatch = item;
-          setLastContext(item);
-          break;
+      const data = await res.json();
+      setAssistantMode(data.mode || 'rag');
+      setMessages(prev => [
+        ...prev,
+        {
+          type: 'ai',
+          text: data.reply,
+          sources: data.sources || [],
+          ctas: data.ctas || []
         }
-      }
-
-      // Check follow ups
-      if (!bestMatch && lastContext) {
-        const followUpKeywords = ['features', 'more', 'details', 'tell me', 'show', 'explain', 'what else', 'yes', 'yeah', 'sure', 'ok', 'okay', 'yep', 'please'];
-        const isFollowUp = followUpKeywords.some(k => {
-          const regex = new RegExp(`\\b${k}\\b`, 'i');
-          return regex.test(lowerText);
-        });
-
-        if (isFollowUp) {
-          bestMatch = lastContext.contextResponse ?
-            { ...lastContext, response: lastContext.contextResponse } :
-            lastContext;
+      ]);
+    } catch (err) {
+      console.warn('API call failed, running deterministic client fallback:', err);
+      // Clean fallback if running in offline or purely static Vite preview
+      setAssistantMode('offline');
+      setMessages(prev => [
+        ...prev,
+        {
+          type: 'ai',
+          text: "I am currently in **Offline Mode**. Abir specializes in AI & Data Engineering at EMSI, with deep experience in Multi-Agent Systems (Lexiva AI), Data Lakehouses (Snowflake, Airflow, XGBoost), and Full-Stack systems (FastAPI, React, Django).\n\nFeel free to explore her live projects or contact her directly!",
+          sources: [{ title: 'About Abir & Skills', section: 'Portfolio' }],
+          ctas: [
+            { label: 'View Projects', action: 'scroll', target: 'projects' },
+            { label: 'Contact Abir', action: 'scroll', target: 'contact' }
+          ]
         }
-      }
-
-      let responseText = "";
-      let responseCtas = [];
-
-      if (bestMatch) {
-        responseText = bestMatch.response;
-        if (bestMatch.cta) responseCtas = [bestMatch.cta];
-        if (bestMatch.ctas) responseCtas = bestMatch.ctas;
-      } else {
-        const fallbacks = [
-          "I'm not entirely sure about that! But I can tell you about Abir's Data Lakehouse, her AI integration work, or her Full-Stack web apps.",
-          "Hmm, I didn't catch that. Try asking me about 'projects', 'skills', or 'how to contact Abir'!",
-          "I'm still learning! While I process that, would you like to see her latest AI Research Assistant, Lexiva?"
-        ];
-        responseText = fallbacks[Math.floor(Math.random() * fallbacks.length)];
-      }
-
-      setMessages(prev => [...prev, { type: 'ai', text: responseText, ctas: responseCtas }]);
+      ]);
+    } finally {
       setIsTyping(false);
-    }, typingDelay);
+    }
   };
 
   const quickButtons = [
-    { label: 'View Projects', query: 'Tell me about your projects' },
-    { label: 'Data Lakehouse', query: 'Tell me about the Data Lakehouse project' },
-    { label: 'AI Projects', query: 'What AI work has she done?' },
-    { label: 'Contact Abir', query: 'How can I contact her?' }
+    { label: 'Why hire Abir for AI?', query: 'Why is Abir a strong candidate for an AI & Data internship?' },
+    { label: 'Analyze Job Fit', action: () => setActiveView('job_match') },
+    { label: 'Lexiva AI', query: 'Tell me about Lexiva AI and its multi-agent architecture' },
+    { label: 'Data Lakehouse', query: 'Explain her Data Lakehouse and XGBoost pricing model' },
+    { label: 'Certifications', query: 'What AI and cloud certifications does Abir hold?' }
   ];
 
   return (
     <>
-      {/* Floating Button */}
+      {/* Floating Launcher Button */}
       <motion.div
         className="ai-assistant-wrapper"
         style={{
@@ -378,324 +293,447 @@ const AIAssistant = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
               style={{
-                background: 'rgba(5, 5, 5, 0.8)',
-                backdropFilter: 'blur(10px)',
-                padding: '0.5rem 1rem',
-                borderRadius: '0.75rem',
-                fontSize: '0.85rem',
-                color: 'white',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                boxShadow: '0 10px 20px rgba(0,0,0,0.2)',
-                whiteSpace: 'nowrap',
-                pointerEvents: 'none',
-                marginBottom: '0.5rem'
+                background: 'rgba(15, 15, 26, 0.85)',
+                backdropFilter: 'blur(12px)',
+                border: '1px solid rgba(18, 194, 233, 0.3)',
+                padding: '0.6rem 1rem',
+                borderRadius: '2rem',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                cursor: 'pointer'
               }}
+              onClick={() => setIsOpen(true)}
             >
-              Ask AI About My Work
+              <Sparkles size={14} color="#12c2e9" />
+              <span style={{ fontSize: '0.85rem', color: '#fff', fontWeight: '500' }}>
+                Ask Abir's AI Agent
+              </span>
             </motion.div>
           )}
         </AnimatePresence>
 
         <motion.button
-          className="ai-toggle-btn"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={() => setIsOpen(!isOpen)}
-          animate={{
-            y: [0, -10, 0],
-          }}
-          transition={{
-            y: {
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }
-          }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
           style={{
-            width: '64px',
-            height: '64px',
-            background: 'var(--accent-gradient)',
-            color: 'white',
-            border: 'none',
+            width: '60px',
+            height: '60px',
             borderRadius: '50%',
+            background: 'var(--accent-gradient)',
+            border: 'none',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 10px 25px rgba(18, 194, 233, 0.4)',
+            color: 'white',
             cursor: 'pointer',
+            boxShadow: '0 4px 25px rgba(18, 194, 233, 0.4)',
             position: 'relative'
           }}
         >
-          {isOpen ? <X size={28} /> : <RobotIcon size={40} isTyping={isTyping} />}
-          {!isOpen && (
-            <motion.span
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-              style={{
-                position: 'absolute',
-                top: 0,
-                right: 0,
-                width: '12px',
-                height: '12px',
-                background: '#10b981',
-                borderRadius: '50%',
-                border: '2px solid rgba(10, 10, 20, 1)'
-              }}
-            />
-          )}
+          {isOpen ? <X size={26} /> : <RobotIcon size={34} isTyping={isTyping} />}
         </motion.button>
       </motion.div>
 
-      {/* Chat Panel */}
+      {/* Main AI Chatbot & Job Analyzer Drawer */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 100, scale: 0.8, transformOrigin: 'bottom right' }}
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 100, scale: 0.8 }}
-            className="glass-panel ai-chat-panel"
+            exit={{ opacity: 0, y: 30, scale: 0.95 }}
+            transition={{ duration: 0.25 }}
             style={{
               position: 'fixed',
-              bottom: '6rem',
+              bottom: '6.5rem',
               right: '2rem',
-              width: '380px',
-              maxWidth: 'calc(100vw - 4rem)',
-              height: '500px',
-              zIndex: 100,
+              width: '420px',
+              maxWidth: 'calc(100vw - 2.5rem)',
+              height: '620px',
+              maxHeight: 'calc(100vh - 8rem)',
+              background: 'rgba(15, 15, 26, 0.94)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(18, 194, 233, 0.25)',
+              borderRadius: '1.25rem',
+              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6)',
               display: 'flex',
               flexDirection: 'column',
-              padding: 0,
-              overflow: 'hidden',
-              background: 'rgba(10, 10, 20, 0.9)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)',
-              backdropFilter: 'blur(20px)'
+              zIndex: 99,
+              overflow: 'hidden'
             }}
           >
             {/* Header */}
             <div style={{
-              padding: '1.25rem 1.5rem',
+              padding: '1.1rem 1.25rem',
               background: 'rgba(255, 255, 255, 0.03)',
-              borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{
-                  width: '32px',
-                  height: '32px',
-                  borderRadius: '10px',
-                  background: 'var(--accent-gradient)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'white'
-                }}>
-                  <RobotIcon size={24} isTyping={isTyping} />
-                </div>
+                <RobotIcon size={26} isTyping={isTyping} />
                 <div>
-                  <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: '600' }}>Abir's Assistant</h4>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981' }}></span>
-                    <span style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.5)' }}>Online</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <h4 style={{ margin: 0, fontSize: '0.98rem', fontWeight: '600', color: '#fff' }}>
+                      Abir's AI Agent
+                    </h4>
+                    <span style={{
+                      padding: '0.15rem 0.5rem',
+                      borderRadius: '1rem',
+                      background: assistantMode === 'rag' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)',
+                      border: `1px solid ${assistantMode === 'rag' ? 'rgba(16, 185, 129, 0.3)' : 'rgba(245, 158, 11, 0.3)'}`,
+                      fontSize: '0.68rem',
+                      color: assistantMode === 'rag' ? '#10b981' : '#f59e0b',
+                      fontWeight: 600
+                    }}>
+                      {assistantMode === 'rag' ? '✨ AI Online' : '⚡ Offline'}
+                    </span>
                   </div>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+                    Grounded in verified portfolio & resume
+                  </span>
                 </div>
               </div>
+
               <button
                 onClick={() => setIsOpen(false)}
                 style={{
-                  background: 'none',
+                  background: 'transparent',
                   border: 'none',
-                  color: 'rgba(255, 255, 255, 0.5)',
+                  color: 'var(--text-secondary)',
                   cursor: 'pointer',
                   padding: '4px',
-                  borderRadius: '50%',
-                  transition: 'background 0.2s'
+                  display: 'flex'
                 }}
-                onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)'}
-                onMouseOut={(e) => e.currentTarget.style.background = 'none'}
               >
-                <X size={20} />
+                <X size={18} />
               </button>
             </div>
 
-            {/* Messages Area */}
+            {/* Subheader Toolbar: Job Analyzer Toggle */}
             <div style={{
-              flex: 1,
-              overflowY: 'auto',
-              padding: '1.5rem',
+              padding: '0.5rem 1.25rem',
+              background: 'rgba(18, 194, 233, 0.04)',
+              borderBottom: '1px solid rgba(18, 194, 233, 0.1)',
               display: 'flex',
-              flexDirection: 'column',
-              gap: '1.25rem',
-              scrollbarWidth: 'thin',
-              scrollbarColor: 'rgba(255, 255, 255, 0.1) transparent'
+              alignItems: 'center',
+              justifyContent: 'space-between'
             }}>
-              {messages.map((msg, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, x: msg.type === 'ai' ? -10 : 10, y: 5 }}
-                  animate={{ opacity: 1, x: 0, y: 0 }}
-                  style={{
-                    alignSelf: msg.type === 'ai' ? 'flex-start' : 'flex-end',
-                    maxWidth: '85%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '0.6rem'
-                  }}
-                >
-                  <div style={{
-                    padding: '0.8rem 1.1rem',
-                    borderRadius: msg.type === 'ai' ? '0 1.2rem 1.2rem 1.2rem' : '1.2rem 0 1.2rem 1.2rem',
-                    background: msg.type === 'ai' ? 'rgba(255, 255, 255, 0.05)' : 'var(--accent-gradient)',
-                    color: 'white',
-                    fontSize: '0.9rem',
-                    lineHeight: '1.5',
-                    border: msg.type === 'ai' ? '1px solid rgba(255, 255, 255, 0.05)' : 'none'
-                  }}>
-                    {msg.text}
-                  </div>
-
-                  {/* CTAs */}
-                  {msg.ctas && msg.ctas.length > 0 && (
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                      {msg.ctas.map((cta, cIdx) => (
-                        <button
-                          key={cIdx}
-                          onClick={() => handleAction(cta)}
-                          style={{
-                            padding: '0.4rem 0.8rem',
-                            borderRadius: '0.6rem',
-                            background: 'rgba(255, 255, 255, 0.1)',
-                            border: '1px solid rgba(255, 255, 255, 0.1)',
-                            color: 'white',
-                            fontSize: '0.8rem',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '0.4rem',
-                            transition: 'all 0.2s'
-                          }}
-                          onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'}
-                          onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)'}
-                        >
-                          {cta.icon}
-                          {cta.label}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-
-                  {msg.isInitial && (
-                    <div style={{
-                      marginTop: '0.4rem',
-                      display: 'flex',
-                      flexWrap: 'wrap',
-                      gap: '0.5rem'
-                    }}>
-                      {quickButtons.map((btn, bIdx) => (
-                        <button
-                          key={bIdx}
-                          onClick={() => handleSend(btn.query)}
-                          style={{
-                            padding: '0.5rem 0.8rem',
-                            borderRadius: '0.75rem',
-                            background: 'rgba(18, 194, 233, 0.1)',
-                            border: '1px solid rgba(18, 194, 233, 0.2)',
-                            color: 'var(--accent-color)',
-                            fontSize: '0.8rem',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '0.4rem',
-                            transition: 'all 0.2s'
-                          }}
-                          onMouseOver={(e) => {
-                            e.currentTarget.style.background = 'rgba(18, 194, 233, 0.2)';
-                            e.currentTarget.style.transform = 'translateY(-1px)';
-                          }}
-                          onMouseOut={(e) => {
-                            e.currentTarget.style.background = 'rgba(18, 194, 233, 0.1)';
-                            e.currentTarget.style.transform = 'translateY(0)';
-                          }}
-                        >
-                          {btn.label}
-                          <ChevronRight size={12} />
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </motion.div>
-              ))}
-
-              {isTyping && (
-                <div style={{
-                  alignSelf: 'flex-start',
-                  padding: '0.8rem 1.1rem',
-                  borderRadius: '0 1.2rem 1.2rem 1.2rem',
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  display: 'flex',
-                  gap: '4px'
-                }}>
-                  <motion.span animate={{ opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1 }} style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'white' }}></motion.span>
-                  <motion.span animate={{ opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'white' }}></motion.span>
-                  <motion.span animate={{ opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }} style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'white' }}></motion.span>
-                </div>
-              )}
-              <div ref={messagesEndRef} />
-            </div>
-
-            {/* Input Area */}
-            <form
-              onSubmit={(e) => { e.preventDefault(); handleSend(); }}
-              style={{
-                padding: '1.25rem',
-                background: 'rgba(255, 255, 255, 0.02)',
-                borderTop: '1px solid rgba(255, 255, 255, 0.05)',
-                display: 'flex',
-                gap: '0.75rem'
-              }}
-            >
-              <input
-                type="text"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Ask about my work..."
-                style={{
-                  flex: 1,
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  borderRadius: '0.75rem',
-                  padding: '0.75rem 1rem',
-                  color: 'white',
-                  fontSize: '0.9rem',
-                  outline: 'none'
-                }}
-              />
               <button
-                type="submit"
-                disabled={!inputValue.trim()}
+                onClick={() => setActiveView(activeView === 'chat' ? 'job_match' : 'chat')}
                 style={{
-                  width: '42px',
-                  height: '42px',
-                  borderRadius: '0.75rem',
-                  background: inputValue.trim() ? 'var(--accent-gradient)' : 'rgba(255, 255, 255, 0.05)',
-                  border: 'none',
-                  color: 'white',
+                  background: activeView === 'job_match' ? 'var(--accent-gradient)' : 'rgba(255, 255, 255, 0.06)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  borderRadius: '0.5rem',
+                  padding: '0.35rem 0.75rem',
+                  fontSize: '0.78rem',
+                  color: '#fff',
+                  cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: inputValue.trim() ? 'pointer' : 'default',
+                  gap: '0.4rem',
                   transition: 'all 0.2s'
                 }}
               >
-                <Send size={18} />
+                <Briefcase size={13} />
+                {activeView === 'job_match' ? '← Back to Chat' : 'Analyze Job Description →'}
               </button>
-            </form>
+              <span style={{ fontSize: '0.72rem', color: 'rgba(255, 255, 255, 0.4)' }}>
+                {activeView === 'job_match' ? 'Recruiter Mode' : 'AI Assistant'}
+              </span>
+            </div>
+
+            {/* View: Job Description Matcher */}
+            {activeView === 'job_match' ? (
+              <div style={{
+                flex: 1,
+                padding: '1.25rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem',
+                overflowY: 'auto'
+              }}>
+                <div>
+                  <h4 style={{ margin: '0 0 0.4rem 0', color: '#fff', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    <Briefcase size={16} color="#12c2e9" /> Candidate Fit Analyzer
+                  </h4>
+                  <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+                    Paste an AI, Data Engineering, or Software job description. The AI assistant will evaluate Abir's relevant experience, matched projects, aligned technologies, and unmentioned prerequisites.
+                  </p>
+                </div>
+
+                <textarea
+                  value={jobDescriptionInput}
+                  onChange={(e) => setJobDescriptionInput(e.target.value)}
+                  placeholder="Paste job posting or requirements here (e.g., Looking for an AI intern proficient in Python, Machine Learning, FastAPI, PostgreSQL...)"
+                  style={{
+                    flex: 1,
+                    minHeight: '180px',
+                    background: 'rgba(255, 255, 255, 0.04)',
+                    border: '1px solid rgba(18, 194, 233, 0.2)',
+                    borderRadius: '0.75rem',
+                    padding: '0.85rem',
+                    color: 'white',
+                    fontSize: '0.85rem',
+                    resize: 'none',
+                    outline: 'none',
+                    lineHeight: '1.5',
+                    fontFamily: 'inherit'
+                  }}
+                />
+
+                <div style={{ display: 'flex', gap: '0.75rem' }}>
+                  <button
+                    onClick={() => handleSend(jobDescriptionInput, 'job_match')}
+                    disabled={!jobDescriptionInput.trim() || isTyping}
+                    style={{
+                      flex: 1,
+                      padding: '0.75rem 1rem',
+                      borderRadius: '0.75rem',
+                      background: jobDescriptionInput.trim() ? 'var(--accent-gradient)' : 'rgba(255, 255, 255, 0.05)',
+                      border: 'none',
+                      color: 'white',
+                      fontWeight: 600,
+                      fontSize: '0.88rem',
+                      cursor: jobDescriptionInput.trim() ? 'pointer' : 'default',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.5rem',
+                      transition: 'all 0.2s'
+                    }}
+                  >
+                    <Sparkles size={16} /> Analyze with AI
+                  </button>
+                  <button
+                    onClick={() => setActiveView('chat')}
+                    style={{
+                      padding: '0.75rem 1rem',
+                      borderRadius: '0.75rem',
+                      background: 'rgba(255, 255, 255, 0.05)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      color: 'var(--text-secondary)',
+                      fontSize: '0.85rem',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            ) : (
+              /* View: Standard Chat */
+              <>
+                <div style={{
+                  flex: 1,
+                  overflowY: 'auto',
+                  padding: '1.25rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '1.25rem',
+                  scrollbarWidth: 'thin',
+                  scrollbarColor: 'rgba(255, 255, 255, 0.1) transparent'
+                }}>
+                  {messages.map((msg, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, x: msg.type === 'ai' ? -10 : 10, y: 5 }}
+                      animate={{ opacity: 1, x: 0, y: 0 }}
+                      style={{
+                        alignSelf: msg.type === 'ai' ? 'flex-start' : 'flex-end',
+                        maxWidth: '88%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.5rem'
+                      }}
+                    >
+                      <div style={{
+                        padding: '0.85rem 1.15rem',
+                        borderRadius: msg.type === 'ai' ? '0 1.2rem 1.2rem 1.2rem' : '1.2rem 0 1.2rem 1.2rem',
+                        background: msg.type === 'ai' ? 'rgba(255, 255, 255, 0.05)' : 'var(--accent-gradient)',
+                        color: 'white',
+                        border: msg.type === 'ai' ? '1px solid rgba(255, 255, 255, 0.07)' : 'none',
+                        boxShadow: msg.type === 'ai' ? '0 4px 15px rgba(0, 0, 0, 0.2)' : 'none'
+                      }}>
+                        <FormattedMessage text={msg.text} />
+                      </div>
+
+                      {/* Source Attribution Chips */}
+                      {msg.sources && msg.sources.length > 0 && (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', paddingLeft: '0.3rem' }}>
+                          <span style={{ fontSize: '0.68rem', color: 'rgba(255, 255, 255, 0.45)', textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: 600 }}>
+                            📚 Verified Sources:
+                          </span>
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+                            {msg.sources.map((src, sIdx) => (
+                              <span
+                                key={sIdx}
+                                style={{
+                                  padding: '0.2rem 0.55rem',
+                                  borderRadius: '0.4rem',
+                                  background: 'rgba(18, 194, 233, 0.08)',
+                                  border: '1px solid rgba(18, 194, 233, 0.2)',
+                                  fontSize: '0.72rem',
+                                  color: 'var(--accent-color)',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: '0.25rem'
+                                }}
+                              >
+                                <FileText size={10} /> {src.title}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Interactive Call-To-Action Buttons */}
+                      {msg.ctas && msg.ctas.length > 0 && (
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.2rem' }}>
+                          {msg.ctas.map((cta, cIdx) => (
+                            <button
+                              key={cIdx}
+                              onClick={() => handleAction(cta)}
+                              style={{
+                                padding: '0.4rem 0.8rem',
+                                borderRadius: '0.6rem',
+                                background: 'rgba(255, 255, 255, 0.08)',
+                                border: '1px solid rgba(255, 255, 255, 0.12)',
+                                color: 'white',
+                                fontSize: '0.78rem',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.4rem',
+                                transition: 'all 0.2s'
+                              }}
+                              onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'}
+                              onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)'}
+                            >
+                              {cta.label}
+                              <ArrowRight size={12} />
+                            </button>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Initial Quick Suggestion Buttons */}
+                      {msg.isInitial && (
+                        <div style={{
+                          marginTop: '0.5rem',
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          gap: '0.45rem'
+                        }}>
+                          {quickButtons.map((btn, bIdx) => (
+                            <button
+                              key={bIdx}
+                              onClick={() => btn.action ? btn.action() : handleSend(btn.query)}
+                              style={{
+                                padding: '0.45rem 0.75rem',
+                                borderRadius: '0.75rem',
+                                background: 'rgba(18, 194, 233, 0.08)',
+                                border: '1px solid rgba(18, 194, 233, 0.2)',
+                                color: 'var(--accent-color)',
+                                fontSize: '0.76rem',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.35rem',
+                                transition: 'all 0.2s'
+                              }}
+                              onMouseOver={(e) => {
+                                e.currentTarget.style.background = 'rgba(18, 194, 233, 0.18)';
+                                e.currentTarget.style.transform = 'translateY(-1px)';
+                              }}
+                              onMouseOut={(e) => {
+                                e.currentTarget.style.background = 'rgba(18, 194, 233, 0.08)';
+                                e.currentTarget.style.transform = 'translateY(0)';
+                              }}
+                            >
+                              {btn.label}
+                              <ChevronRight size={11} />
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </motion.div>
+                  ))}
+
+                  {isTyping && (
+                    <div style={{
+                      alignSelf: 'flex-start',
+                      padding: '0.8rem 1.1rem',
+                      borderRadius: '0 1.2rem 1.2rem 1.2rem',
+                      background: 'rgba(255, 255, 255, 0.05)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px'
+                    }}>
+                      <span style={{ fontSize: '0.75rem', color: 'var(--accent-color)', marginRight: '4px' }}>Thinking</span>
+                      <motion.span animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1 }} style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#12c2e9' }}></motion.span>
+                      <motion.span animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#12c2e9' }}></motion.span>
+                      <motion.span animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }} style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#12c2e9' }}></motion.span>
+                    </div>
+                  )}
+                  <div ref={messagesEndRef} />
+                </div>
+
+                {/* Input Form */}
+                <form
+                  onSubmit={(e) => { e.preventDefault(); handleSend(); }}
+                  style={{
+                    padding: '1rem 1.25rem',
+                    background: 'rgba(255, 255, 255, 0.02)',
+                    borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+                    display: 'flex',
+                    gap: '0.75rem'
+                  }}
+                >
+                  <input
+                    type="text"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    placeholder="Ask about Abir's AI models, projects, or stack..."
+                    style={{
+                      flex: 1,
+                      background: 'rgba(255, 255, 255, 0.05)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      borderRadius: '0.75rem',
+                      padding: '0.75rem 1rem',
+                      color: 'white',
+                      fontSize: '0.88rem',
+                      outline: 'none'
+                    }}
+                  />
+                  <button
+                    type="submit"
+                    disabled={!inputValue.trim() || isTyping}
+                    style={{
+                      width: '42px',
+                      height: '42px',
+                      borderRadius: '0.75rem',
+                      background: inputValue.trim() ? 'var(--accent-gradient)' : 'rgba(255, 255, 255, 0.05)',
+                      border: 'none',
+                      color: 'white',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: inputValue.trim() ? 'pointer' : 'default',
+                      transition: 'all 0.2s'
+                    }}
+                  >
+                    <Send size={18} />
+                  </button>
+                </form>
+              </>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
-
     </>
   );
 };
